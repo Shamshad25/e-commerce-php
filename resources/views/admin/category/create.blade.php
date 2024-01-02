@@ -21,42 +21,42 @@
     <div class="container-fluid">
 
         <form action="" method="post" name="categoryForm" id="categoryForm">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="Name">
-                            <p></p>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name">Name</label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Name">
+                                <p></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="slug">Slug</label>
-                            <input type="text" readonly name="slug" id="slug" class="form-control" placeholder="Slug">
-                            <p></p>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="slug">Slug</label>
+                                <input type="text" readonly name="slug" id="slug" class="form-control" placeholder="Slug">
+                                <p></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="status">Status</label>
-                            <select name="status" id="status" class="form-control">
-                                <option value="1">Active</option>
-                                <option value="0">Block</option>
-                            </select>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="status">Status</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="1">Active</option>
+                                    <option value="0">Block</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="pb-5 pt-3">
-            <button type="submit" class="btn btn-primary">Create</button>
-            <a href="{{route('categories.index')}}" class="btn btn-outline-dark ml-3">Cancel</a>
-        </div>
+            <div class="pb-5 pt-3">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a href="{{route('categories.index')}}" class="btn btn-outline-dark ml-3">Cancel</a>
+            </div>
 
-    </form>
+        </form>
 
 
     </div>
@@ -68,11 +68,11 @@
 
 @section('customJs')
 <script>
-
 // Web Validation
 $('#categoryForm').submit(function(event){
     event.preventDefault();
     var element = $(this);
+    $("button[type=submit]").prop('disabled',true);
 
     $.ajax({
         url: '{{ route("categories.store")}}',
@@ -80,9 +80,11 @@ $('#categoryForm').submit(function(event){
         data: element.serializeArray(),
         dataType: 'json',
         success: function(response){
-            var errors = response['errors'];
+            $("button[type=submit]").prop('disabled',false);
 
-            if(response['success'] == true){
+            if(response['status'] == true){
+
+                window.location.href="{{route('categories.index')}}"
 
                 $('#name').addClass('is-invalid')
                 .siblings('p')
@@ -93,6 +95,7 @@ $('#categoryForm').submit(function(event){
                 .removeClass('invalid-feedback').html('');
 
             }else{
+                var errors = response['errors'];
                 if(errors['name']){
                 $('#name').addClass('is-invalid')
                 .siblings('p')
@@ -125,12 +128,16 @@ $('#categoryForm').submit(function(event){
 // Slug name creater
 $('#name').change(function(){
     element = $(this);
+    $("button[type=submit]").prop('disabled',true);
+
     $.ajax({
         url: '{{ route("getSlug")}}',
         type: 'get',
         data: {title: element.val()},
         dataType: 'json',
         success: function(response){
+         $("button[type=submit]").prop('disabled',false);
+
             if(response['status'] == true){
                 $('#slug').val(response['slug']);
             }

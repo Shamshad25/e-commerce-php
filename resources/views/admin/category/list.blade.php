@@ -19,6 +19,7 @@
 <section class="content">
     <!-- Default box -->
     <div class="container-fluid">
+        @include('admin.message')
         <div class="card">
             <form action="" method="get">
             <div class="card-header">
@@ -56,7 +57,7 @@
                             @foreach ($categories as $category)
 
                             <tr>
-                                <td>{{$category->id}}</td>
+                                <td>{{$loop->index + 1}}</td>
                                 <td>{{$category->name}}</td>
                                 <td>{{$category->slug}}</td>
                                 <td>
