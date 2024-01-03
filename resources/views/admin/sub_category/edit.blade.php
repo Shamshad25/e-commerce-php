@@ -99,7 +99,7 @@ $('#subCategoryForm').submit(function(event){
 
             if(response['status'] == true){
 
-                window.location.href="{{route('sub-categories.index')}}"
+                window.location.href="{{route('sub-categories.index')}}";
 
                 $('#name').addClass('is-invalid')
                 .siblings('p')
@@ -114,6 +114,12 @@ $('#subCategoryForm').submit(function(event){
                 .removeClass('invalid-feedback').html('');
 
             }else{
+
+                if(response['notFound'] == true){
+                    window.location.href="{{route('sub-categories.index')}}";
+                    return false;
+                }
+
                 var errors = response['errors'];
                 if(errors['name']){
                 $('#name').addClass('is-invalid')
