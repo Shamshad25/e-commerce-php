@@ -139,6 +139,7 @@ $('#categoryForm').submit(function(event){
     })
 });
 
+
 // Slug name creater
 $('#name').change(function(){
     element = $(this);
