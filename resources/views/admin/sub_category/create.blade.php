@@ -99,15 +99,19 @@ $('#subCategoryForm').submit(function(event){
 
             if(response['status'] == true){
 
-                // window.location.href="{{route('categories.index')}}"
+                window.location.href="{{route('sub-categories.index')}}"
 
-                // $('#name').addClass('is-invalid')
-                // .siblings('p')
-                // .removeClass('invalid-feedback').html('');
+                $('#name').addClass('is-invalid')
+                .siblings('p')
+                .removeClass('invalid-feedback').html('');
 
-                // $('#slug').addClass('is-invalid')
-                // .siblings('p')
-                // .removeClass('invalid-feedback').html('');
+                $('#slug').addClass('is-invalid')
+                .siblings('p')
+                .removeClass('invalid-feedback').html('');
+
+                $('#category').addClass('is-invalid')
+                .siblings('p')
+                .removeClass('invalid-feedback').html('');
 
             }else{
                 var errors = response['errors'];
