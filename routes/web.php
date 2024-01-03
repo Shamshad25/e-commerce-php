@@ -40,9 +40,12 @@ Route::group(['prefix' => 'admin'], function(){
 
         // CATEGORY ROUTES
         Route::get('/categories',[CategoryController::class,'index'])->name('categories.index');
-
         Route::get('/categories/create',[CategoryController::class,'create'])->name('categories.create');
         Route::post('/categories',[CategoryController::class,'store'])->name('categories.store');
+        Route::get('/categories/{catregory}/edit',[CategoryController::class,'edit'])->name('categories.edit');
+        Route::put('/categories/{catregory}',[CategoryController::class,'update'])->name('categories.update');
+
+
 
         // temp-images.create
         Route::post('/upload-temp-image',[TempImagesController::class,'create'])->name('temp-images.create');
