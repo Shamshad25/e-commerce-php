@@ -76,7 +76,10 @@ class CategoryController extends Controller
                 // GENERATE IMAGE THUMBNAIL
                 $dPath = public_path().'/uploads/category/thumb/'.$newImageName;
                 $img = Image::make($sPath);
-                $img->resize(450, 600);
+                // $img->resize(450, 600);
+                $img->fit(450, 600, function ($constraint) {
+                    $constraint->upsize();
+                });
                 $img->save($dPath);
 
                 $category->image = $newImageName;
@@ -143,7 +146,10 @@ class CategoryController extends Controller
                 // GENERATE IMAGE THUMBNAIL
                 $dPath = public_path().'/uploads/category/thumb/'.$newImageName;
                 $img = Image::make($sPath);
-                $img->resize(450, 600);
+                // $img->resize(450, 600);
+                $img->fit(450, 600, function ($constraint) {
+                    $constraint->upsize();
+                });
                 $img->save($dPath);
 
                 $category->image = $newImageName;
@@ -171,7 +177,24 @@ class CategoryController extends Controller
         }
     }
 
-    public function destroy(){
+    public function destroy($categroyId, Request $request){
+        $category = Category::find($categroyId);
 
+        if(empty($category)){
+            return redirect()->route('categories.index');
+        }
+
+
+        File::delete(public_path().'/uploads/category/thumb/'.$category->image);
+        File::delete(public_path().'/uploads/category/'.$category->image);
+
+        $category->delete();
+
+        $request->session()->flash('success','Category deleted successfully');
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Category deleted successfully'
+        ]);
     }
 }
