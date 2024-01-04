@@ -60,6 +60,7 @@ Route::group(['prefix' => 'admin'], function(){
 
 
         // BRANDS ROUTES
+        Route::get('/brands',[BrandController::class,'index'])->name('brands.index');
         Route::get('/brands/create',[BrandController::class,'create'])->name('brands.create');
         Route::post('/brands',[BrandController::class,'store'])->name('brands.store');
 

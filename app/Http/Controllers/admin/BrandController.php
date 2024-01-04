@@ -10,6 +10,19 @@ use Illuminate\Support\Facades\Validator;
 
 class BrandController extends Controller
 {
+
+    public function index(Request $request){
+        $brands = Brand::latest('id');
+
+        if($request->get('keyword')){
+            $brands = $brands->where('name','like','%'.$request->keyword.'%');
+        }
+
+        $brands = $brands->paginate(10);
+
+        return view('admin.brands.list',compact('brands'));
+    }
+
     public function create(){
         return view('admin.brands.create');
     }
@@ -37,6 +50,15 @@ class BrandController extends Controller
                 'status' => false,
                 'errors' => $validator->errors()
             ]);
+        }
+    }
+
+    public function edit($id,Request $request){
+        $brand = Brand::find($id);
+
+        if(empty($brand)){
+            $request->session()->flash('error', 'Record not found.');
+            return redirect()->route('brands.index');
         }
     }
 }
