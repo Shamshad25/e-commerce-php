@@ -20,7 +20,7 @@
 <section class="content">
     <!-- Default box -->
     <div class="container-fluid">
-            <form action="" name="createBrandForm" id="createBrandForm" method="post">
+            <form action="" name="editBrandForm" id="editBrandForm" method="post">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -66,14 +66,14 @@
 @section('customJs')
 <script>
 // Web Validation
-$('#createBrandForm').submit(function(event){
+$('#editBrandForm').submit(function(event){
     event.preventDefault();
     var element = $(this);
     $("button[type=submit]").prop('disabled',true);
 
     $.ajax({
-        url: '{{ route("brands.store")}}',
-        type: 'post',
+        url: '{{ route("brands.update", $brand->id)}}',
+        type: 'put',
         data: element.serializeArray(),
         dataType: 'json',
         success: function(response){
@@ -92,6 +92,11 @@ $('#createBrandForm').submit(function(event){
                 // .removeClass('invalid-feedback').html('');
 
             }else{
+
+                if(response['notFound'] == true){
+                    window.location.href="{{route('brands.index')}}"
+                }
+
                 var errors = response['errors'];
                 if(errors['name']){
                 $('#name').addClass('is-invalid')
