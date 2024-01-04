@@ -60,5 +60,9 @@ class BrandController extends Controller
             $request->session()->flash('error', 'Record not found.');
             return redirect()->route('brands.index');
         }
+
+        $data['brand'] = $brand;
+
+        return view('admin.brands.edit', $data);
     }
 }
