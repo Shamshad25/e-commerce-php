@@ -316,17 +316,26 @@ Dropzone.autoDiscover = false;
             //console.log(response)
 
 
-           var html = `<div class="col-md-3"><div class="card">
+           var html = `<div class="col-md-3" id="image-row-${response.image_id}"><div class="card">
                 <input type="hidden" name="image_array[]" value="${response.image_id}" />
                 <img src="${response.ImagePath}" class="card-img-top" alt="">
                 <div class="card-body">
-                    <a href="#" class="btn btn-danger">Delete</a>
+                    <a href="javascript:void(0)" onclick="deleteImage(${response.image_id})" class="btn btn-danger">Delete</a>
                 </div>
             </div></div>`
 
             $("#product-gallery").append(html);
+        },
+
+        // Remove Image after upload from dropzone
+        complete: function(file){
+            this.removeFile(file);
         }
     });
 
+
+    function deleteImage(id){
+        $("#image-row-"+id).remove();
+    }
 </script>
 @endsection
