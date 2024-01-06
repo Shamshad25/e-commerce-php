@@ -14,9 +14,15 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         // to get images product_images from product model
-        $products = Product::latest('id')->with('product_images')->paginate();
+        $products = Product::latest('id')->with('product_images');
+
+        if($request->get('keyword')  != ""){
+            $products = $products->where('title','like','%'.$request->keyword.'%');
+        }
+
+        $products = $products->paginate();
         // dd($products);
         return view('admin.products.list',compact('products'));
     }
