@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index(){
         // to get images product_images from product model
         $products = Product::latest('id')->with('product_images')->paginate();
-        dd($products);
+        // dd($products);
         return view('admin.products.list',compact('products'));
     }
 
