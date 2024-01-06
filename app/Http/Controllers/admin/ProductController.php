@@ -15,7 +15,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 class ProductController extends Controller
 {
     public function index(){
-        
+
     }
 
     public function create(){
@@ -87,7 +87,7 @@ class ProductController extends Controller
 
                     // Large Image
                     $sourcePath = public_path().'/temp/'.$tempImageInfo->name;
-                    $destPath = public_path().'/uploads/product/large/'.$tempImageInfo->name;
+                    $destPath = public_path().'/uploads/product/large/'.$imageName;
                     $image = Image::make($sourcePath);
                     $image->resize(1400, null, function ($constraint) {
                         $constraint->aspectRatio();
@@ -95,7 +95,7 @@ class ProductController extends Controller
                     $image->save($destPath);
 
                     // Small Image
-                    $destPath = public_path().'/uploads/product/small/'.$tempImageInfo->name;
+                    $destPath = public_path().'/uploads/product/small/'.$imageName;
                     $image = Image::make($sourcePath);
                     $image->fit(300, 300);
                     $image->save($destPath);
