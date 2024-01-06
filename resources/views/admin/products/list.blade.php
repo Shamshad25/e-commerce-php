@@ -9,7 +9,7 @@
                 <h1>Products</h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="create-product.html" class="btn btn-primary">New Product</a>
+                <a href="{{route('products.create')}}" class="btn btn-primary">New Product</a>
             </div>
         </div>
     </div>
@@ -19,21 +19,8 @@
 <section class="content">
     <!-- Default box -->
     <div class="container-fluid">
+        @include('admin.message')
         <div class="card">
-            {{-- <div class="card-header">
-                <div class="card-tools">
-                    <div class="input-group input-group" style="width: 250px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                        <div class="input-group-append">
-                          <button type="submit" class="btn btn-default">
-                            <i class="fas fa-search"></i>
-                          </button>
-                        </div>
-                      </div>
-                </div>
-            </div> --}}
-
             <form action="" method="get">
                 <div class="card-header">
                     <div class="card-title">
