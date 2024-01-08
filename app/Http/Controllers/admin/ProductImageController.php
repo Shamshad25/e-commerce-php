@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductImageController extends Controller
@@ -48,7 +49,26 @@ class ProductImageController extends Controller
     }
 
     public function destroy(Request $request){
-        
+        $productImage = ProductImage::find($request->id);
+
+        if(empty($productImage)){
+            return response()->json([
+                'status' => false,
+                'message' => 'Image not found.'
+            ]);
+        }
+
+        // Delete images from folder
+        File::delete(public_path('uploads/product/large/'.$productImage->image));
+        File::delete(public_path('uploads/product/small/'.$productImage->image));
+
+        $productImage->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Image deleted successfully.'
+        ]);
+
     }
 
 }
