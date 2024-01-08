@@ -10,7 +10,7 @@
                 <h1>Create Brand</h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="brands.html" class="btn btn-primary">Back</a>
+                <a href="{{route('brands.index')}}" class="btn btn-primary">Back</a>
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="pb-5 pt-3">
                     <button type="submit" class="btn btn-primary">Create</button>
-                    <a href="brands.html" class="btn btn-outline-dark ml-3">Cancel</a>
+                    <a href="{{route('brands.index')}}" class="btn btn-outline-dark ml-3">Cancel</a>
                 </div>
         </form>
     </div>
@@ -81,37 +81,40 @@ $('#createBrandForm').submit(function(event){
 
             if(response['status'] == true){
 
-                // window.location.href="{{route('categories.index')}}"
 
-                // $('#name').addClass('is-invalid')
-                // .siblings('p')
-                // .removeClass('invalid-feedback').html('');
+                $('#name').addClass('is-invalid')
+                .siblings('p')
+                .removeClass('invalid-feedback').html('');
 
-                // $('#slug').addClass('is-invalid')
-                // .siblings('p')
-                // .removeClass('invalid-feedback').html('');
+                $('#slug').addClass('is-invalid')
+                .siblings('p')
+                .removeClass('invalid-feedback').html('');
+
+                window.location.href="{{route('brands.index')}}";
+
 
             }else{
                 var errors = response['errors'];
+
                 if(errors['name']){
                 $('#name').addClass('is-invalid')
                 .siblings('p')
                 .addClass('invalid-feedback').html(errors['name']);
-            }else{
-                $('#name').addClass('is-invalid')
-                .siblings('p')
-                .removeClass('invalid-feedback').html('');
-            }
+                }else{
+                    $('#name').addClass('is-invalid')
+                    .siblings('p')
+                    .removeClass('invalid-feedback').html('');
+                }
 
-            if(errors['slug']){
-                $('#slug').addClass('is-invalid')
-                .siblings('p')
-                .addClass('invalid-feedback').html(errors['slug']);
-            }else{
-                $('#slug').addClass('is-invalid')
-                .siblings('p')
-                .removeClass('invalid-feedback').html('');
-            }
+                if(errors['slug']){
+                    $('#slug').addClass('is-invalid')
+                    .siblings('p')
+                    .addClass('invalid-feedback').html(errors['slug']);
+                }else{
+                    $('#slug').addClass('is-invalid')
+                    .siblings('p')
+                    .removeClass('invalid-feedback').html('');
+                }
             }
 
 
