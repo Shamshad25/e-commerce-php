@@ -63,12 +63,12 @@
                     <div class="row" id="product-gallery">
                         @if ($productImages->isNotEmpty())
                             @foreach ($productImages as $image )
-                                <div class="col-md-3" id="image-row-${{$image->id}}">
+                                <div class="col-md-3" id="image-row-{{$image->id}}">
                                     <div class="card">
                                         <input type="hidden" name="image_array[]" value="{{$image->id}}" />
-                                        <img src="{{asset('uploads/product/small/'.$image->image)}}" class="card-img-top" alt="">
+                                        <img src="{{asset('uploads/product/small/'.$image->image)}}" class="card-img-top" alt="" />
                                         <div class="card-body">
-                                            <a href="javascript:void(0)" onclick="deleteImage({{$image->id}}" class="btn btn-danger">Delete</a>
+                                            <a href="javascript:void(0)" onclick="deleteImage({{$image->id}})" class="btn btn-danger">Delete</a>
                                         </div>
                                     </div>
                                 </div>
@@ -324,8 +324,9 @@ $.ajax({
 
 Dropzone.autoDiscover = false;
     const dropzone = $("#image").dropzone({
-        url:  "{{ route('temp-images.create') }}",
+        url:  "{{ route('product-images.update') }}",
         maxFiles: 10,
+        params: {'product_id': '{{$product->id}}'},
         paramName: 'image',
         addRemoveLinks: true,
         acceptedFiles: "image/jpeg,image/png,image/gif",
@@ -355,7 +356,21 @@ Dropzone.autoDiscover = false;
 
 
     function deleteImage(id){
-        $("#image-row-"+id).remove();
+    $("#image-row-"+id).remove();
+       if(confirm('Are you sure you want to delete image?')){
+            $.ajax({
+                url: '{{route('product-images.destroy')}}',
+                type: 'delete',
+                data: {id:id},
+                success: function(response){
+                    if(response.status == true){
+                        alert(response.message);
+                    }else{
+                        alert(response.message);
+                    }
+                }
+            });
+       }
     }
 </script>
 @endsection
