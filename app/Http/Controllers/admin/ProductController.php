@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\SubCategory;
 use App\Models\TempImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -127,10 +128,21 @@ class ProductController extends Controller
         }
     }
 
-    public function edit(){
+    public function edit($id, Request $request){
+        $product = Product::find($id);
 
+        $subCategories = SubCategory::where('category_id',$product->category_id)->get();
 
+        $data = [];
+        $data['product'] = $product;
+        $data['subCategories'] = $subCategories;
+        $categories = Category::orderBy('name','ASC')->get();
+        $brands = Brand::orderBy('name','ASC')->get();
+        $data['categories'] = $categories;
+        $data['brands'] = $brands;
+        return view('admin.products.edit',$data);
     }
+
     public function update(){
 
     }
