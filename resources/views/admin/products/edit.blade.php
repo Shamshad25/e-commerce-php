@@ -61,7 +61,19 @@
                         </div>
                     </div>
                     <div class="row" id="product-gallery">
-
+                        @if ($productImages->isNotEmpty())
+                            @foreach ($productImages as $image )
+                                <div class="col-md-3" id="image-row-${{$image->id}}">
+                                    <div class="card">
+                                        <input type="hidden" name="image_array[]" value="{{$image->id}}" />
+                                        <img src="{{asset('uploads/product/small/'.$image->image)}}" class="card-img-top" alt="">
+                                        <div class="card-body">
+                                            <a href="javascript:void(0)" onclick="deleteImage({{$image->id}}" class="btn btn-danger">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                     <div class="card mb-3">
                         <div class="card-body">
@@ -235,8 +247,8 @@ $("#productForm").submit(function(){
             $("button[type='submit']").prop('disabled',true);
 
             $.ajax({
-                url: '{{route("products.store")}}',
-                type: 'post',
+                url: '{{route("products.update",$product->id)}}',
+                type: 'put',
                 data: formArray,
                 dataType: 'json',
                 success: function(response){
