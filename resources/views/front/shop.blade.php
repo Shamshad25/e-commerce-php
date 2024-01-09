@@ -89,14 +89,11 @@
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-end mb-4">
                             <div class="ml-2">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-bs-toggle="dropdown">Sorting</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Latest</a>
-                                        <a class="dropdown-item" href="#">Price High</a>
-                                        <a class="dropdown-item" href="#">Price Low</a>
-                                    </div>
-                                </div>
+                                <select name="sort" id="sort" class="form-control">
+                                    <option value="latest" {{($sort == 'latest') ? 'selected' : ''}}>Latest</option>
+                                    <option value="price_desc" {{($sort == 'price_desc') ? 'selected' : ''}}>Price High</option>
+                                    <option value="price_asc" {{($sort == 'price_asc') ? 'selected' : ''}}>Price Low</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -190,6 +187,10 @@
         apply_filters();
     });
 
+    $('#sort').change(function(){
+        apply_filters();
+    });
+
     function apply_filters(){
         var brands = [];
 
@@ -199,15 +200,19 @@
             }
         });
 
-        console.log(brands.toString());
 
         var url = '{{url()->current()}}?';
 
-        url += '&price_min='+slider.result.from+'&price_max='+slider.result.to;
-
+        // Brand filter
         if(brands.length > 0){
             url += '&brand='+brands.toString();
         }
+
+        // Price range filter
+        url += '&price_min='+slider.result.from+'&price_max='+slider.result.to;
+
+        // Sorting
+        url += '&sort='+$('#sort').val();
 
         window.location.href = url;
 
