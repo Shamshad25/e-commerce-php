@@ -13,6 +13,7 @@ class ShopController extends Controller
     public function index(Request $request,$categorySlug = null, $subCategorySlug = null){
         $categorySelected = '';
         $subCategorySelected = '';
+        $brandsArray = [];
 
         $categories = Category::orderBy('name','ASC')->with('sub_category')->where('status',1)->get();
         $brands = Brand::orderBy('name','ASC')->where('status',1)->get();
@@ -32,6 +33,11 @@ class ShopController extends Controller
             $subCategorySelected = $subCategory->id;
         }
 
+        if(!empty($request->get('brand'))){
+            $brandsArray = explode(',',$request->get('brand'));
+            $products = $products->whereIn('brand_id',$brandsArray);
+        }
+
         // $products = Product::orderBy('id','DESC')->where('status',1)->get();
 
         $products = $products->orderBy('id','DESC');
@@ -42,6 +48,7 @@ class ShopController extends Controller
         $data['products'] = $products;
         $data['categorySelected'] = $categorySelected;
         $data['subCategorySelected'] = $subCategorySelected;
+        $data['brandsArray'] = $brandsArray;
 
         return view('front.shop',$data);
     }
