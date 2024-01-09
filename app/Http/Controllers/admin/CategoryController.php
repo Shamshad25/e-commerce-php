@@ -60,6 +60,7 @@ class CategoryController extends Controller
             $category->name = $request->name;
             $category->slug = $request->slug;
             $category->status = $request->status;
+            $category->showHome = $request->showHome;
             $category->save();
 
             // Save Image
@@ -104,7 +105,7 @@ class CategoryController extends Controller
     }
 
     public function update($categroyId,Request $request){
-        
+
         $category = Category::find($categroyId);
 
         if(empty($category)){
@@ -132,6 +133,8 @@ class CategoryController extends Controller
             $category->name = $request->name;
             $category->slug = $request->slug;
             $category->status = $request->status;
+            $category->showHome = $request->showHome;
+
             $category->save();
 
             $oldImage = $category->image;
