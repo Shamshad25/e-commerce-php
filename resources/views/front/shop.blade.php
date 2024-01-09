@@ -64,8 +64,8 @@
                         @if ($brands->isNotEmpty())
                             @foreach ($brands as $brand)
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" name="brand[]" value="{{$brand->id}}" id="brand-{{$brand->id}}" />
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                    <input {{in_array($brand->id, $brandsArray) ? 'checked' : ''}} class="form-check-input brand-label" type="checkbox" name="brand[]" value="{{$brand->id}}" id="brand-{{$brand->id}}" />
+                                    <label class="form-check-label" for="brand-{{$brand->id}}">
                                         {{$brand->name}}
                                     </label>
                                 </div>
@@ -186,4 +186,29 @@
     </div>
 </section>
 
+@endsection
+
+@section('customJs')
+<script>
+    $('.brand-label').change(function(){
+        apply_filters();
+    });
+
+    function apply_filters(){
+        var brands = [];
+
+        $(".brand-label").each(function(){
+            if($(this).is(':checked') == true){
+                brands.push($(this).val());
+            }
+        });
+
+        console.log(brands.toString());
+
+        var url = '{{url()->current()}}?'
+
+        window.location.href = url+'&brand='+brands.toString();
+
+    }
+</script>
 @endsection
