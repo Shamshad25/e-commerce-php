@@ -77,6 +77,7 @@ class ProductController extends Controller
             $product->is_featured = $request->is_featured;
             $product->shipping_returns = $request->shipping_returns;
             $product->short_description = $request->short_description;
+            $product->related_products = (!empty($request->related_products)) ? implode(',',$request->related_products): '';
             $product->save();
 
             // Save Gallery Pictures
@@ -144,6 +145,14 @@ class ProductController extends Controller
 
         $subCategories = SubCategory::where('category_id',$product->category_id)->get();
 
+        $relatedProducts = [];
+        // Fetch related data
+        if($product->related_products != ''){
+            $productArray = explode(',',$product->related_products);
+
+            $relatedProducts = Product::whereIn('id',$productArray)->with('product_images')->get();
+        }
+
         $data = [];
         $categories = Category::orderBy('name','ASC')->get();
         $brands = Brand::orderBy('name','ASC')->get();
@@ -152,6 +161,7 @@ class ProductController extends Controller
         $data['product'] = $product;
         $data['subCategories'] = $subCategories;
         $data['productImages'] = $productImages;
+        $data['relatedProducts'] = $relatedProducts;
         return view('admin.products.edit',$data);
     }
 
@@ -193,6 +203,7 @@ class ProductController extends Controller
             $product->is_featured = $request->is_featured;
             $product->shipping_returns = $request->shipping_returns;
             $product->short_description = $request->short_description;
+            $product->related_products = (!empty($request->related_products)) ? implode(',',$request->related_products): '';
             $product->save();
 
 
