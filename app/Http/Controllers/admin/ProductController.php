@@ -245,4 +245,22 @@ class ProductController extends Controller
         ]);
 
     }
+
+    public function getProducts(Request $request){
+        $tempProduct = [];
+        if($request->term != ""){
+            $products = Product::where('title','like','%'.$request->term.'%')->get();
+
+            if($products != null){
+                foreach($products as $product){
+                    $tempProduct[] = array('id' => $product->id, 'text' => $product->title);
+                }
+            }
+        }
+
+        return response()->json([
+            'tags' => $tempProduct,
+            'status' => true,
+        ]);
+    }
 }
