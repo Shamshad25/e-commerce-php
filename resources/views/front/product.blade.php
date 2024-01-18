@@ -155,6 +155,3 @@
         </section>
     @endif
 @endsection
-
-@section('customJs')
-@endsection
