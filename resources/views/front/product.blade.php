@@ -59,7 +59,8 @@
 
                         {!! $product->short_description !!}
 
-                        <a href="cart.php" class="btn btn-dark"><i class="fas fa-shopping-cart"></i> &nbsp;ADD TO CART</a>
+                        <a href="javascritp:void(0);" onclick="addToCart({{ $product->id }})" class="btn btn-dark"><i
+                                class="fas fa-shopping-cart"></i> &nbsp;ADD TO CART</a>
                     </div>
                 </div>
 
@@ -152,4 +153,26 @@
             </div>
         </section>
     @endif
+@endsection
+
+@section('customJs')
+    <script type="text/javascript">
+        function addToCart(id) {
+            $.ajax({
+                url: "{{ route('front.addToCart') }}",
+                type: 'post',
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status == true) {
+                        window.location.href = "{{ route('front.cart') }}"
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            });
+        }
+    </script>
 @endsection
