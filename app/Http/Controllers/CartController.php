@@ -106,4 +106,27 @@ class CartController extends Controller
             'message' => $message
         ]);
     }
+
+    public function deleteItem(Request $request){
+
+        $itemInfo = Cart::get($request->rowId);
+
+        if($itemInfo == null){
+            session()->flash('error', 'Item not found in cart.');
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Item not found in cart.'
+            ]);
+        }
+
+        Cart::remove($request->rowId);
+
+        session()->flash('success', 'Item removed from cart successfully.');
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Item removed from cart successfully.'
+            ]);
+    }
 }
