@@ -162,9 +162,7 @@
                     qty: qty
                 },
                 success: function(response) {
-                    if (response.status == true) {
-                        window.location.href = "{{ route('front.cart') }}";
-                    }
+                    window.location.href = "{{ route('front.cart') }}";
                 }
             });
         }
