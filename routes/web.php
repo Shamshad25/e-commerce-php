@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\TempImagesController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ShopController;
@@ -41,6 +42,8 @@ Route::post('/update-cart', [CartController::class,'updateCart'])->name('front.u
 Route::post('/delete-item', [CartController::class,'deleteItem'])->name('front.deleteItem.cart');
 
 
+
+Route::get('/register', [AuthController::class,'register'])->name('account.register');
 
 Route::group(['prefix' => 'admin'], function(){
 
