@@ -44,6 +44,7 @@ Route::post('/delete-item', [CartController::class,'deleteItem'])->name('front.d
 
 
 Route::get('/register', [AuthController::class,'register'])->name('account.register');
+Route::post('/process-register', [AuthController::class,'processRegister'])->name('account.processRegister');
 
 Route::group(['prefix' => 'admin'], function(){
 
