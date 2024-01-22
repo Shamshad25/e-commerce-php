@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users',function(Blueprint $table){
-            $table->text('short_description')->nullable()->after('description');
-            $table->text('shipping_returns')->nullable()->after('short_description');
-            $table->text('related_products')->nullable()->after('shipping_returns');
+            $table->string('phone')->nullable()->after('email');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('users',function(Blueprint $table){
+            $table->removeColumn('phone');
+        });
     }
 };
