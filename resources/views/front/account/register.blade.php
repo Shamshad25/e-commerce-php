@@ -53,6 +53,7 @@
         $('#registrationForm').submit(function(event) {
             event.preventDefault();
 
+            $("button[type='submit']").prop('disabled', true);
 
             $.ajax({
                 url: "{{ route('account.processRegister') }}",
@@ -60,6 +61,7 @@
                 data: $(this).serializeArray(),
                 dataType: 'json',
                 success: function(response) {
+                    $("button[type='submit']").prop('disabled', false);
 
                     var errors = response.errors;
 
@@ -98,6 +100,8 @@
 
                         $("#password").siblings("p").removeClass('invalid-feedback').html('');
                         $("#password").removeClass('is-invalid');
+
+                        window.location.href = "{{ route('account.login') }}";
                     }
 
 
