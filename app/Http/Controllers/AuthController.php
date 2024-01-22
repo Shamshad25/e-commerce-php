@@ -59,6 +59,8 @@ class AuthController extends Controller
         if($validator->passes()){
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))){
 
+                return redirect()->route('account.profile');
+
             }else{
                 session()->flash('error', 'Either Email/Password is incorrect.');
                 return redirect()->route('account.login')->withInput($request->only('email'));
@@ -71,7 +73,7 @@ class AuthController extends Controller
     }
 
     public function profile(){
-
+        return view('front.account.profile');
     }
 
     public function logout(){
