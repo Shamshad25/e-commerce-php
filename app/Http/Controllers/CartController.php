@@ -134,4 +134,8 @@ class CartController extends Controller
                 'message' => 'Item removed from cart successfully.'
             ]);
     }
+
+    public function checkout(){
+        return view('front.checkout');
+    }
 }
