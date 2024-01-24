@@ -148,9 +148,11 @@ class CartController extends Controller
             if(!session()->has('url.intended')){
                 session(['url.intended' => url()->current()]);
             }
-            
+
             return redirect()->route('account.login');
         }
+
+        session()->forget('url.intended');
 
         return view('front.checkout');
     }
