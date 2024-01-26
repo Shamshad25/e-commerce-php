@@ -48,8 +48,11 @@
                                     <div class="mb-3">
                                         <select name="country" id="country" class="form-control">
                                             <option value="">Select a Country</option>
-                                            <option value="1">India</option>
-                                            <option value="2">UK</option>
+                                            @if ($countries->isNotEmpty())
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->id }}"> {{ $country->name }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
