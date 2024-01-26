@@ -137,26 +137,39 @@
                             <div class="h5"><strong>${{ Cart::subtotal() }}</strong></div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card payment-form ">
-                    <h3 class="card-title h5 mb-3">Payment Details</h3>
-                    <div class="card-body p-0">
-                        <div class="mb-3">
-                            <label for="card_number" class="mb-2">Card Number</label>
-                            <input type="text" name="card_number" id="card_number" placeholder="Valid Card Number"
-                                class="form-control">
+
+                    <div class="card payment-form ">
+
+                        <h3 class="card-title h5 mb-3">Payment Method</h3>
+
+                        <div>
+                            <input checked type="radio" name="payment_method" id="payment_method_one" value="cod">
+                            <label for="payment_method_one" class="form-check-label">COD</label>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="expiry_date" class="mb-2">Expiry Date</label>
-                                <input type="text" name="expiry_date" id="expiry_date" placeholder="MM/YYYY"
-                                    class="form-control">
+
+                        <div>
+                            <input type="radio" name="payment_method" id="payment_method_two" value="stripe">
+                            <label for="payment_method_two" class="form-check-label">Stripe</label>
+                        </div>
+
+                        <div class="card-body p-0 d-none mt-3" id="card-payment-form">
+                            <div class="mb-3">
+                                <label for="card_number" class="mb-2">Card Number</label>
+                                <input type="text" name="card_number" id="card_number"
+                                    placeholder="Valid Card Number" class="form-control">
                             </div>
-                            <div class="col-md-6">
-                                <label for="expiry_date" class="mb-2">CVV Code</label>
-                                <input type="text" name="expiry_date" id="expiry_date" placeholder="123"
-                                    class="form-control">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="expiry_date" class="mb-2">Expiry Date</label>
+                                    <input type="text" name="expiry_date" id="expiry_date" placeholder="MM/YYYY"
+                                        class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="expiry_date" class="mb-2">CVV Code</label>
+                                    <input type="text" name="expiry_date" id="expiry_date" placeholder="123"
+                                        class="form-control">
+                                </div>
                             </div>
                         </div>
                         <div class="pt-4">
@@ -172,4 +185,21 @@
         </div>
         </div>
     </section>
+@endsection
+
+@section('customJs')
+    <script>
+        $("#payment_method_one").click(function() {
+            if ($(this).is(":checked") == true) {
+                $("#card-payment-form").addClass('d-none');
+            }
+        });
+
+        $("#payment_method_two").click(function() {
+            // console.log('clicked');
+            if ($(this).is(":checked") == true) {
+                $("#card-payment-form").removeClass('d-none');
+            }
+        });
+    </script>
 @endsection
