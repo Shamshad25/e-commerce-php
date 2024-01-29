@@ -161,4 +161,8 @@ class CartController extends Controller
             'countries' => $countries
         ]);
     }
+
+    public function processCheckout(){
+        // Step 1 Validation
+    }
 }
