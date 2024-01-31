@@ -167,11 +167,11 @@ class CartController extends Controller
         // Step 1 Validation
 
         $validator = Validator::make($request->all(),[
-            'first_name' => 'required',
+            'first_name' => 'required|min:5',
             'last_name' => 'required',
             'email' => 'required|email',
             'country' => 'required',
-            'address' => 'required',
+            'address' => 'required|min:30',
             'city' => 'required',
             'state' => 'required',
             'zip' => 'required',

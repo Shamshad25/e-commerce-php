@@ -115,7 +115,6 @@
                                         <div class="mb-3">
                                             <textarea name="order_notes" id="order_notes" cols="30" rows="2" placeholder="Order Notes (optional)"
                                                 class="form-control"></textarea>
-                                            <p></p>
                                         </div>
                                     </div>
 
