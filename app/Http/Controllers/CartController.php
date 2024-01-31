@@ -185,5 +185,9 @@ class CartController extends Controller
                 'errors' => $validator->errors()
             ]);
         }
+
+        // Step 2 save user address
+        
+
     }
 }
