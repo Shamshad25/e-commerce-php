@@ -72,7 +72,7 @@
 
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <input type="text" name="appartment" id="appartment" class="form-control"
+                                            <input type="text" name="apartment" id="apartment" class="form-control"
                                                 placeholder="Apartment, suite, unit, etc. (optional)">
                                             <p></p>
                                         </div>
