@@ -202,7 +202,7 @@ class CartController extends Controller
                 'mobile' => $request->mobile,
                 'country_id' => $request->country,
                 'address' => $request->address,
-                'apartment' => $request->apartment,
+                'appartment' => $request->appartment,
                 'city' => $request->city,
                 'state' => $request->state,
                 'zip' => $request->zip,
