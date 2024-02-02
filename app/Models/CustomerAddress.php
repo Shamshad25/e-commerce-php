@@ -17,10 +17,9 @@ class CustomerAddress extends Model
         'mobile',
         'country_id',
         'address',
-        'apartment',
+        'appartment',
         'state',
         'city',
         'zip',
-
-    ]
+    ];
 }
