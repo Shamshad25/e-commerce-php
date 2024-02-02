@@ -29,6 +29,8 @@ return new class extends Migration
         });
     }
 
+    // "SQLSTATE[HY000]: General error: 1364 Field 'first_name' doesn't have a default value (Connection: mysql, SQL: insert into `customer_addresses` (`user_id`, `last_name`, `email`, `mobile`, `country_id`, `address`, `appartment`, `city`, `state`, `zip`, `updated_at`, `created_at`) values (3, Hingmang, joseph@gmail.com, 08327251923, 100, Guabari, Jaigaon, Jaygaon(CT), Jalpaiguri, 23424, Jaigaon, West Bengal, 736182, 2024-02-02 15:48:00, 2024-02-02 15:48:00))
+
     /**
      * Reverse the migrations.
      */
