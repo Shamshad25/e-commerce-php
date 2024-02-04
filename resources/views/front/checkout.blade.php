@@ -16,7 +16,6 @@
     <section class="section-9 pt-4">
         <div class="container">
             <form action="" name="orderForm" id="orderForm" method="post">
-                @csrf
                 <div class="row">
                     <div class="col-md-8">
                         <div class="sub-title">
@@ -74,7 +73,7 @@
                                         <div class="mb-3">
                                             <input type="text" name="appartment" id="appartment" class="form-control"
                                                 placeholder="Apartment, suite, unit, etc. (optional)">
-                                            <p></p>
+
                                         </div>
                                     </div>
 
@@ -295,18 +294,6 @@
                             .html(errors.state);
                     } else {
                         $("#state").removeClass('is-invalid')
-                            .siblings("p")
-                            .removeClass('invalid-feedback')
-                            .html('');
-                    }
-
-                    if (errors.city) {
-                        $("#city").addClass('is-invalid')
-                            .siblings("p")
-                            .addClass('invalid-feedback')
-                            .html(errors.city);
-                    } else {
-                        $("#city").removeClass('is-invalid')
                             .siblings("p")
                             .removeClass('invalid-feedback')
                             .html('');
