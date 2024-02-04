@@ -33,7 +33,6 @@ return new class extends Migration
             $table->string('state');
             $table->string('zip');
             $table->text('notes');
-
             $table->timestamps();
         });
     }
