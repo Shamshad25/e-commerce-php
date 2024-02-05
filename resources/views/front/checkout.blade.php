@@ -227,6 +227,8 @@
                 success: function(response) {
                     var errors = response.errors;
 
+                    console.log(errors);
+
                     if (errors.first_name) {
                         $("#first_name").addClass('is-invalid')
                             .siblings("p")
