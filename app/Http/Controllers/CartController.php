@@ -206,6 +206,17 @@ class CartController extends Controller
                 'city' => $request->city,
                 'state' => $request->state,
                 'zip' => $request->zip,
+
+                // 'frist_name' => $request->get('first_name'),
+                // 'last_name' => $request->get('last_name'),
+                // 'email' => $request->get('email'),
+                // 'mobile' => $request->get('mobile'),
+                // 'country_id' => $request->get('country'),
+                // 'address' => $request->get('address'),
+                // 'appartment' => $request->get('appartment'),
+                // 'city' => $request->get('city'),
+                // 'state' => $request->get('state'),
+                // 'zip' => $request->get('zip'),
             ]
         );
 
