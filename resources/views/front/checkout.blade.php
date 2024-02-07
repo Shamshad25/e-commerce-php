@@ -105,7 +105,7 @@
                                         <div class="mb-3">
                                             <input type="text" name="zip" id="zip" class="form-control"
                                                 placeholder="Zip"
-                                                value="!empty($customerAddress) ? $customerAddress->zip : '' }}"">
+                                                value="{{ !empty($customerAddress) ? $customerAddress->zip : '' }}">
                                             <p></p>
                                         </div>
                                     </div>
