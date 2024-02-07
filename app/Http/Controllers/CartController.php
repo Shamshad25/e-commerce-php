@@ -157,12 +157,15 @@ class CartController extends Controller
             return redirect()->route('account.login');
         }
 
+        $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
+
         session()->forget('url.intended');
 
         $countries = Country::orderBy('name','ASC')->get();
 
         return view('front.checkout',[
-            'countries' => $countries
+            'countries' => $countries,
+            'customerAddress' => $customerAddress
         ]);
     }
 
@@ -236,11 +239,11 @@ class CartController extends Controller
             $order->state = $request->state;
             $order->city = $request->city;
             $order->zip = $request->zip;
-            $order->notes = $request->notes;
+            $order->notes = $request->order_notes;
             $order->country_id = $request->country;
             $order->save();
 
-        // Step 3 Store order items in order item table
+        // Step 4 Store order items in order item table
 
         foreach (Cart::content() as $item){
             $orderItem = new OrderItem;
@@ -255,8 +258,11 @@ class CartController extends Controller
 
         session()->flash('success', 'You have successfully placed your order.');
 
+        Cart::destroy();
+
         return response()->json([
             'message' => 'Orders saved successfully',
+            'orderId' =>  $order->id,
             'status' => true,
         ]);
 
