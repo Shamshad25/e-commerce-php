@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('zip');
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
