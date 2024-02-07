@@ -253,10 +253,21 @@ class CartController extends Controller
             $orderItem->save();
         }
 
+        session()->flash('success', 'You have successfully placed your order.');
+
+        return response()->json([
+            'message' => 'Orders saved successfully',
+            'status' => true,
+        ]);
+
 
         }else{
             //
         }
 
+    }
+
+    public function thankyou(){
+        return view('front.thanks');
     }
 }
