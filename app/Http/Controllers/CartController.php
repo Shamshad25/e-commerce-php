@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Models\CustomerAddress;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -238,6 +239,20 @@ class CartController extends Controller
             $order->notes = $request->notes;
             $order->country_id = $request->country;
             $order->save();
+
+        // Step 3 Store order items in order item table
+
+        foreach (Cart::content() as $item){
+            $orderItem = new OrderItem;
+            $orderItem->product_id = $item->id;
+            $orderItem->order_id = $order->id;
+            $orderItem->name = $item->name;
+            $orderItem->qty = $item->qty;
+            $orderItem->price = $item->price;
+            $orderItem->total = $item->price*$item->qty;
+            $orderItem->save();
+        }
+
 
         }else{
             //
