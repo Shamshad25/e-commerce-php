@@ -187,16 +187,18 @@ class CartController extends Controller
             ]);
         }
 
+        // dd($request->first_name);
+
         // Step 2 save user address
         // $customerAddress = CustomerAddress::find();
 
-        $user = Auth::user();
-
+        $user = Auth::user()->id;
         CustomerAddress::updateOrCreate(
-            ['user_id' => $user->id],
+
+            ['user_id' => $user],
             [
-                'user_id' => $user->id,
-                'frist_name' => $request->first_name,
+                'user_id' => $user,
+                'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
                 'mobile' => $request->mobile,
