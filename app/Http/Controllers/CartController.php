@@ -225,7 +225,7 @@ class CartController extends Controller
             $order->subtotal = $subTotal;
             $order->shipping = $shipping;
             $order->grand_total = $grandTotal;
-            $order->user_id = $user->id;
+            $order->user_id = $user;
             $order->first_name = $request->first_name;
             $order->last_name = $request->last_name;
             $order->email = $request->email;
@@ -237,6 +237,7 @@ class CartController extends Controller
             $order->zip = $request->zip;
             $order->notes = $request->notes;
             $order->country_id = $request->country;
+            $order->save();
 
         }else{
             //
