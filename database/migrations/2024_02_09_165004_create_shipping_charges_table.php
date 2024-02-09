@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('shipping_charges', function (Blueprint $table) {
             $table->id();
+            $table->double('country_id');
+            $table->double('amount',10,2);
             $table->timestamps();
         });
     }
