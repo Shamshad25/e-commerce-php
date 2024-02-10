@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Country;
-use App\Models\Shipping;
+use App\Models\ShippingCharge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,7 +28,7 @@ class ShippingController extends Controller
 
         if($validator->passes()){
 
-            $shipping = new Shipping;
+            $shipping = new ShippingCharge;
             $shipping->country_id = $request->country;
             $shipping->amount = $request->amount;
             $shipping->save();
