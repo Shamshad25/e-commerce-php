@@ -60,6 +60,33 @@
 
             </form>
 
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                                @if ($shippingCharges->isNotEmpty())
+                                    @foreach ($shippingCharges as $shippingCharge)
+                                        <tr>
+                                            <td>{{ $shippingCharge->id }}</td>
+                                            <td>{{ $shippingCharge->name }}</td>
+                                            <td>${{ $shippingCharge->amount }}</td>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
         <!-- /.card -->
