@@ -11,5 +11,7 @@ class ShippingController extends Controller
     public function create()
     {
         $countries = Country::get();
+
+        return view('admin.shipping.create');
     }
 }
