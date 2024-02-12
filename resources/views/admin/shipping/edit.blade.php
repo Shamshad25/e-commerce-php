@@ -31,8 +31,7 @@
 
                                         @if ($countries->isNotEmpty())
                                             @foreach ($countries as $country)
-                                                <option
-                                                    {{ $shippingCharge->country_id == $country->id ? 'selected' : '' }}
+                                                <option {{ $shippingCharge->country_id == $country->id ? 'selected' : '' }}
                                                     value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
                                             {{-- <option value="rest_of_world">Rest of the world</option> --}}
@@ -78,8 +77,8 @@
             $("button[type=submit]").prop('disabled', true);
 
             $.ajax({
-                url: '{{ route('shipping.store') }}',
-                type: 'post',
+                url: '{{ route('shipping.update', $shippingCharge->id) }}',
+                type: 'put',
                 data: element.serializeArray(),
                 dataType: 'json',
                 success: function(response) {
