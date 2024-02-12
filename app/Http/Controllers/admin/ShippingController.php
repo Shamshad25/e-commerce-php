@@ -23,7 +23,47 @@ class ShippingController extends Controller
         return view('admin.shipping.create', $data);
     }
 
-    public function store(Request $request)
+    public function store($id,Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'country' => 'required',
+            'amount' => 'required|numeric'
+        ]);
+
+        if($validator->passes()){
+
+            $shipping =  ShippingCharge::find($id);
+            $shipping->country_id = $request->country;
+            $shipping->amount = $request->amount;
+            $shipping->save();
+
+            session()->flash('success','Shipping updated successfully.');
+
+            return response()->json([
+                'status' => true,
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ]);
+        }
+    }
+
+    public function edit($id)
+    {
+
+        $shippingCharge = ShippingCharge::find($id);
+
+        $countries = Country::get();
+        $data['countries'] = $countries;
+        $data['shippingCharge'] = $shippingCharge;
+
+
+        return view('admin.shipping.edit',$data);
+    }
+
+    public function update(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'country' => 'required',
@@ -49,4 +89,5 @@ class ShippingController extends Controller
             ]);
         }
     }
+
 }
