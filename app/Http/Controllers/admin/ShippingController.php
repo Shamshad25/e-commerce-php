@@ -25,12 +25,24 @@ class ShippingController extends Controller
 
     public function store(Request $request)
     {
+
+
         $validator = Validator::make($request->all(),[
             'country' => 'required',
             'amount' => 'required|numeric'
         ]);
 
         if($validator->passes()){
+
+            $count = ShippingCharge::where('country_id',$request->country)->count();
+
+            if($count > 0){
+            session()->flash('error','Shipping already exists.');
+
+                return response()->json([
+                    'status' => true,
+                ]);
+            }
 
             $shipping = new  ShippingCharge();
             $shipping->country_id = $request->country;
