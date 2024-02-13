@@ -155,7 +155,7 @@
                             </div>
                             <div class="d-flex justify-content-between mt-2 summery-end">
                                 <div class="h5"><strong>Total</strong></div>
-                                <div class="h5"><strong>${{ Cart::subtotal() }}</strong></div>
+                                <div class="h5"><strong>${{ number_format($grandTotal, 2) }}</strong></div>
                             </div>
                         </div>
 
