@@ -172,16 +172,20 @@ class CartController extends Controller
 
         $totalQty = 0;
         $totalShippingCharge = 0;
+        $grandTotal = 0;
         foreach(Cart::content() as $item){
             $totalQty += $item->qty;
         }
 
         $totalShippingCharge = $totalQty * $shippingInfo->amount;
 
+        $grandTotal = Cart::subtotal(2,'.','')+$totalShippingCharge;
+
         return view('front.checkout',[
             'countries' => $countries,
             'customerAddress' => $customerAddress,
-            'totalShippingCharge' => $totalShippingCharge
+            'totalShippingCharge' => $totalShippingCharge,
+            'grandTotal' => $grandTotal
         ]);
     }
 
