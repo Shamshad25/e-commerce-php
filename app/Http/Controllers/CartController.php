@@ -298,4 +298,8 @@ class CartController extends Controller
             'id' => $id
         ]);
     }
+
+    public function getOrderSummery(){
+        
+    }
 }
