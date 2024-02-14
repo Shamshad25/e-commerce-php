@@ -357,5 +357,19 @@
                 }
             });
         });
+
+        $("country").change(function() {
+            $.ajax({
+                url: 'route("front.getOrderSummery")',
+                type: 'post',
+                data: {
+                    country_id: $(this).val()
+                },
+                dataType: 'json',
+                success: function(response) {
+
+                }
+            });
+        });
     </script>
 @endsection
