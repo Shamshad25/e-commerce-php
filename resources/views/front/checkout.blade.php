@@ -358,9 +358,10 @@
             });
         });
 
-        $("country").change(function() {
+        $("#country").change(function() {
+            console.log('changed');
             $.ajax({
-                url: 'route("front.getOrderSummery")',
+                url: '{{ route('front.getOrderSummery') }}',
                 type: 'post',
                 data: {
                     country_id: $(this).val()
