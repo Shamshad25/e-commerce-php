@@ -245,6 +245,24 @@ class CartController extends Controller
             $subTotal = Cart::subtotal(2,'.','');
             $grandTotal = $subTotal+$shipping;
 
+            // Calculate Shipping
+            $shippingInfo =  ShippingCharge::where('country_id', $request->country)->first();
+
+            $totalQty = 0;
+            foreach(Cart::content() as $item){
+                $totalQty += $item->qty;
+            }
+
+            if($shippingInfo != null){
+                $shipping = $totalQty*$shippingInfo->amount;
+                $grandTotal = $subTotal + $shipping;
+
+            }else{
+                $shippingInfo =  ShippingCharge::where('country_id', 728)->first();
+                $shipping = $totalQty*$shippingInfo->amount;
+                $grandTotal = $subTotal + $shipping;
+            }
+
             $order = new Order;
             $order->subtotal = $subTotal;
             $order->shipping = $shipping;
@@ -300,9 +318,9 @@ class CartController extends Controller
     }
 
     public function getOrderSummery(Request $request){
-        if($request->country_id > 0){
+        $subTotal = Cart::subtotal(2,'.','');
 
-            $subTotal = Cart::subtotal(2,'.','');
+        if($request->country_id > 0){
 
             $shippingInfo =  ShippingCharge::where('country_id', $request->country_id)->first();
 
@@ -338,7 +356,7 @@ class CartController extends Controller
         }else{
             return response()->json([
                 'status' => true,
-                'grandTotal' => number_format($grandTotal,2),
+                'grandTotal' => number_format($subTotal,2),
                 'shippingCharge' => number_format(0,2)
             ]);
         }
