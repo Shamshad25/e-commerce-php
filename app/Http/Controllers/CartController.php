@@ -168,7 +168,7 @@ class CartController extends Controller
         $userCountry = $customerAddress->country_id;
         $shippingInfo = ShippingCharge::where('country_id',$userCountry)->first();
 
-        dd($shippingInfo);
+        // dd($customerAddress);
 
         $totalQty = 0;
         $totalShippingCharge = 0;
@@ -323,8 +323,8 @@ class CartController extends Controller
                 ]);
 
             }else{
-                $shippingInfo =  ShippingCharge::where('country_id', 'rest_of_world')->first();
-
+                $shippingInfo =  ShippingCharge::where('country_id', 728)->first();
+                // dd($shippingInfo);
                 $shippingCharge = $totalQty*$shippingInfo->amount;
                 $grandTotal = $subTotal + $shippingCharge;
 
