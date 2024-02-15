@@ -165,21 +165,26 @@ class CartController extends Controller
         $countries = Country::orderBy('name','ASC')->get();
 
         // Calculate Shipping here
-        $userCountry = $customerAddress->country_id;
-        $shippingInfo = ShippingCharge::where('country_id',$userCountry)->first();
+        if($customerAddress != ''){
+            $userCountry = $customerAddress->country_id;
+            $shippingInfo = ShippingCharge::where('country_id',$userCountry)->first();
 
-        // dd($customerAddress);
 
-        $totalQty = 0;
-        $totalShippingCharge = 0;
-        $grandTotal = 0;
-        foreach(Cart::content() as $item){
-            $totalQty += $item->qty;
+            $totalQty = 0;
+            $totalShippingCharge = 0;
+            $grandTotal = 0;
+            foreach(Cart::content() as $item){
+                $totalQty += $item->qty;
+            }
+
+            $totalShippingCharge = $totalQty * $shippingInfo->amount;
+            $grandTotal = Cart::subtotal(2,'.','')+$totalShippingCharge;
+
+        }else{
+            $grandTotal = Cart::subtotal(2,'.','');
+            $totalShippingCharge = 0;
         }
 
-        $totalShippingCharge = $totalQty * $shippingInfo->amount;
-
-        $grandTotal = Cart::subtotal(2,'.','')+$totalShippingCharge;
 
         return view('front.checkout',[
             'countries' => $countries,
