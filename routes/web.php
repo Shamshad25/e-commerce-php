@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\DiscountCodeController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProductImageController;
@@ -127,12 +128,20 @@ Route::group(['prefix' => 'admin'], function(){
 
 
 
-         // SHIPPING ROUTES
-         Route::get('/shipping/create',[ShippingController::class,'create'])->name('shipping.create');
-         Route::post('/shipping',[ShippingController::class,'store'])->name('shipping.store');
-         Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
-         Route::put('/shipping/{id}',[ShippingController::class,'update'])->name('shipping.update');
+        // SHIPPING ROUTES
+        Route::get('/shipping/create',[ShippingController::class,'create'])->name('shipping.create');
+        Route::post('/shipping',[ShippingController::class,'store'])->name('shipping.store');
+        Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
+        Route::put('/shipping/{id}',[ShippingController::class,'update'])->name('shipping.update');
         Route::delete('/shipping/{id}',[ShippingController::class,'destroy'])->name('shipping.delete');
+
+
+        // COUPON CODE ROUTES
+        Route::get('/coupons/create',[DiscountCodeController::class,'create'])->name('coupons.create');
+        // Route::post('/shipping',[ShippingController::class,'store'])->name('shipping.store');
+        // Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
+        // Route::put('/shipping/{id}',[ShippingController::class,'update'])->name('shipping.update');
+        // Route::delete('/shipping/{id}',[ShippingController::class,'destroy'])->name('shipping.delete');
 
 
 
