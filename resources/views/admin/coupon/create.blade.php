@@ -130,7 +130,7 @@
 
                 <div class="pb-5 pt-3">
                     <button type="submit" class="btn btn-primary">Create</button>
-                    <a href="{{ route('categories.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
+                    <a href="{{ route('coupons.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
                 </div>
 
             </form>
