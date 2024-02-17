@@ -9,7 +9,7 @@
                     <h1>Create Coupon Code</h1>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ route('categories.index') }}" class="btn btn-primary">Back</a>
+                    <a href="{{ route('category.index') }}" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>
@@ -62,8 +62,8 @@
 
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="status">Type</label>
-                                    <select name="status" id="status" class="form-control">
+                                    <label for="type">Type</label>
+                                    <select name="type" id="type" class="form-control">
                                         <option value="percent">Percent</option>
                                         <option value="fixed">Fixed</option>
                                     </select>
@@ -101,8 +101,8 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="starts_at">Starts At</label>
-                                    <input type="text" name="starts_at" id="starts_at" class="form-control"
-                                        placeholder="Starts At">
+                                    <input autocomplete="off" type="text" name="starts_at" id="starts_at"
+                                        class="form-control" placeholder="Starts At">
                                     <p></p>
                                 </div>
                             </div>
@@ -110,8 +110,8 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="expires_at">Expires At</label>
-                                    <input type="text" name="expires_at" id="expires_at" class="form-control"
-                                        placeholder="Expires At">
+                                    <input autocomplete="off" type="text" name="expires_at" id="expires_at"
+                                        class="form-control" placeholder="Expires At">
                                     <p></p>
                                 </div>
                             </div>
@@ -176,13 +176,21 @@
 
                     if (response['status'] == true) {
 
-                        window.location.href = "{{ route('categories.index') }}"
+                        window.location.href = "{{ route('coupons.index') }}"
 
-                        $('#name').addClass('is-invalid')
+                        $('#code').removeClass('is-invalid')
                             .siblings('p')
                             .removeClass('invalid-feedback').html('');
 
-                        $('#slug').addClass('is-invalid')
+                        $('#discount_amount').removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html('');
+
+                        $('#starts_at').removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html('');
+
+                        $('#expires_at').removeClass('is-invalid')
                             .siblings('p')
                             .removeClass('invalid-feedback').html('');
 
