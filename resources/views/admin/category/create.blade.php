@@ -111,11 +111,11 @@
 
                         window.location.href = "{{ route('categories.index') }}"
 
-                        $('#name').addClass('is-invalid')
+                        $('#name').removeClass('is-invalid')
                             .siblings('p')
                             .removeClass('invalid-feedback').html('');
 
-                        $('#slug').addClass('is-invalid')
+                        $('#slug').removeClass('is-invalid')
                             .siblings('p')
                             .removeClass('invalid-feedback').html('');
 
