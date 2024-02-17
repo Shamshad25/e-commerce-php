@@ -115,7 +115,9 @@ class DiscountCodeController extends Controller
             return redirect()->route('coupons.index');
         }
 
-        return view('admin.coupon.edit');
+        $data['coupon'] = $coupon;
+
+        return view('admin.coupon.edit', $data);
     }
 
     public function destroy(){
