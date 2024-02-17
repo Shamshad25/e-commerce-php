@@ -137,6 +137,7 @@ Route::group(['prefix' => 'admin'], function(){
 
 
         // COUPON CODE ROUTES
+        Route::get('/coupons',[DiscountCodeController::class,'index'])->name('coupons.index');
         Route::get('/coupons/create',[DiscountCodeController::class,'create'])->name('coupons.create');
         Route::post('/coupons',[DiscountCodeController::class,'store'])->name('coupons.store');
         // Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
