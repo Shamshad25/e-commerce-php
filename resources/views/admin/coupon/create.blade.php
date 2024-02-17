@@ -9,7 +9,7 @@
                     <h1>Create Coupon Code</h1>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ route('category.index') }}" class="btn btn-primary">Back</a>
+                    <a href="{{ route('coupons.index') }}" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>
