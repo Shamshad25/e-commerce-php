@@ -10,8 +10,18 @@ use Illuminate\Support\Facades\Validator;
 
 class DiscountCodeController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
+        $discountCoupons = DiscountCoupon::latest();
+
+        // Search function
+        if (!empty($request->get('keyword'))){
+            $discountCoupons = $discountCoupons->where('name','like','%'.$request->get('keyword').'%');
+        }
+
+        $discountCoupons = $discountCoupons->paginate(10);
+
+        return view('admin.coupon.list', compact('discountCoupons'));
     }
 
     public function create(){
@@ -26,38 +36,40 @@ class DiscountCodeController extends Controller
             'type' => 'required',
             'discount_amount' => 'required|numeric',
             'status' => 'required',
+            'starts_at'         => 'required|date_format:Y-m-d H:i:s|after:today',
+            'expires_at'        => 'required|date_format:Y-m-d H:i:s|after:starts_at'
         ]);
 
         if($validator->passes()){
 
             // Starting date must be greated than current date
-            if(!empty($request->starts_at)){
-                $now = Carbon::now();
-                $startAt = Carbon::createFromFormat('Y-m-d H:i:s',$request->starts_at);
+            // if(!empty($request->starts_at)){
+            //     $now = Carbon::now();
+            //     $startAt = Carbon::createFromFormat('Y-m-d H:i:s',$request->starts_at);
 
-                // let = less than equal to
-                if($startAt->lte($now) == true){
-                    return response()->json([
-                        'status' => false,
-                        'errors' => ['starts_at' => 'Start date cannot be less than current time.'],
-                    ]);
-                }
-            }
+            //     // let = less than equal to
+            //     if($startAt->lte($now) == true){
+            //         return response()->json([
+            //             'status' => false,
+            //             'errors' => ['starts_at' => 'Start date cannot be less than current time.'],
+            //         ]);
+            //     }
+            // }
 
 
-            // Expiry date must be greated than start date
-            if(!empty($request->starts_at) && !empty($request->expires_at)){
-                $expiresAt = Carbon::createFromFormat('Y-m-d H:i:s',$request->expires_at);
-                $startAt = Carbon::createFromFormat('Y-m-d H:i:s',$request->starts_at);
+            // // Expiry date must be greated than start date
+            // if(!empty($request->starts_at) && !empty($request->expires_at)){
+            //     $expiresAt = Carbon::createFromFormat('Y-m-d H:i:s',$request->expires_at);
+            //     $startAt = Carbon::createFromFormat('Y-m-d H:i:s',$request->starts_at);
 
-                // let = less than equal to
-                if($expiresAt->gt($startAt) == false){
-                    return response()->json([
-                        'status' => false,
-                        'errors' => ['expires_at' => 'Expiry date must be greater than start date.'],
-                    ]);
-                }
-            }
+            //     // let = less than equal to
+            //     if($expiresAt->gt($startAt) == false){
+            //         return response()->json([
+            //             'status' => false,
+            //             'errors' => ['expires_at' => 'Expiry date must be greater than start date.'],
+            //         ]);
+            //     }
+            // }
 
             $discountCode = new DiscountCoupon();
             $discountCode->code = $request->code;
