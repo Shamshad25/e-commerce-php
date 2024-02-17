@@ -36,8 +36,8 @@ class DiscountCodeController extends Controller
             'type' => 'required',
             'discount_amount' => 'required|numeric',
             'status' => 'required',
-            'starts_at'         => 'required|date_format:Y-m-d H:i:s|after:today',
-            'expires_at'        => 'required|date_format:Y-m-d H:i:s|after:starts_at'
+            'starts_at' => 'required|date_format:Y-m-d H:i:s|after:today',
+            'expires_at' => 'required|date_format:Y-m-d H:i:s|after:starts_at'
         ]);
 
         if($validator->passes()){
@@ -120,13 +120,22 @@ class DiscountCodeController extends Controller
 
         $discountCode = DiscountCoupon::find($id);
 
+        if($discountCode == null){
+
+            session()->flash('error', 'Record not found.');
+
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+
         $validator = Validator::make($request->all(),[
             'code' => 'required',
             'type' => 'required',
             'discount_amount' => 'required|numeric',
             'status' => 'required',
-            'starts_at'         => 'required|date_format:Y-m-d H:i:s|after:today',
-            'expires_at'        => 'required|date_format:Y-m-d H:i:s|after:starts_at'
+            'starts_at' => 'required',
+            'expires_at' => 'required|date_format:Y-m-d H:i:s|after:starts_at'
         ]);
 
         if($validator->passes()){
@@ -173,7 +182,7 @@ class DiscountCodeController extends Controller
             $discountCode->expires_at = $request->expires_at;
             $discountCode->save();
 
-            session()->flash('success','Discount coupon added successfully.');
+            session()->flash('success','Discount coupon Updated successfully.');
 
             return response()->json([
                 'status' => true,
