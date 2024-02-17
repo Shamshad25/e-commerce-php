@@ -198,7 +198,25 @@ class DiscountCodeController extends Controller
 
     }
 
-    public function destroy(){
+    public function destroy(Request $request, $id){
+        $discountCode = DiscountCoupon::find($id);
+
+        if($discountCode == null){
+
+            session()->flash('error', 'Record not found.');
+
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+
+        $discountCode->delete();
+
+        session()->flash('success', 'Discount Coupon deleted successfully.');
+
+            return response()->json([
+                'status' => true,
+            ]);
 
     }
 }
