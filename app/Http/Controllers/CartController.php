@@ -146,6 +146,8 @@ class CartController extends Controller
 
     public function checkout(){
 
+        $discount = 0;
+
         // If cart is empty redirect to cart
         if(Cart::count() == 0){
             return redirect()->route('front.cart');
@@ -166,6 +168,19 @@ class CartController extends Controller
 
         $countries = Country::orderBy('name','ASC')->get();
 
+        $subTotal = Cart::subtotal(2,'.','');
+
+        //Apply Discount here
+        if(session()->has('code')){
+            $code = session()->get('code');
+
+            if($code->type == 'percent'){
+                $discount = ($code->discount_amount/100)*$subTotal;
+            }else{
+                $discount = $code->discount_amount;
+            }
+        }
+
         // Calculate Shipping here
         if($customerAddress != ''){
             $userCountry = $customerAddress->country_id;
@@ -180,18 +195,18 @@ class CartController extends Controller
             }
 
             $totalShippingCharge = $totalQty * $shippingInfo->amount;
-            $grandTotal = Cart::subtotal(2,'.','')+$totalShippingCharge;
+            $grandTotal = ($subTotal-$discount)+$totalShippingCharge;
 
         }else{
-            $grandTotal = Cart::subtotal(2,'.','');
+            $grandTotal = ($subTotal-$discount);
             $totalShippingCharge = 0;
         }
-
 
         return view('front.checkout',[
             'countries' => $countries,
             'customerAddress' => $customerAddress,
             'totalShippingCharge' => $totalShippingCharge,
+            'discount'=> $discount,
             'grandTotal' => $grandTotal
         ]);
     }
@@ -404,7 +419,7 @@ class CartController extends Controller
 
         $now = Carbon::now();
 
-        echo $now->format('Y-m-d H:i:s');
+        // echo $now->format('Y-m-d H:i:s');
 
         if($code->starts_at != ""){
             $startDate = Carbon::createFromFormat('Y-m-d H:i:s',$code->starts_at);
