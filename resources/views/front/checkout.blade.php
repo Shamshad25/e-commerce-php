@@ -171,6 +171,13 @@
                             <button class="btn btn-dark" type="button" id="apply-discount">Apply Coupon</button>
                         </div>
 
+                        @if (Session::has('code'))
+                            <div class="mt-4">
+                                <strong>{{ Session::get('code')->code }}</strong>
+                                <a class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                            </div>
+                        @endif
+
                         <div class="card payment-form ">
 
                             <h3 class="card-title h5 mb-3">Payment Method</h3>
