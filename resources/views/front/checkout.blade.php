@@ -161,6 +161,11 @@
                             </div>
                         </div>
 
+                        <div class="input-group apply-coupan mt-4">
+                            <input type="text" placeholder="Coupon Code" class="form-control" name="discount_code"
+                                id="discount_code">
+                            <button class="btn btn-dark" type="button" id="apply-discount">Apply Coupon</button>
+                        </div>
 
                         <div class="card payment-form ">
 
@@ -361,7 +366,7 @@
         });
 
         $("#country").change(function() {
-            console.log('changed');
+            // console.log('changed');
             $.ajax({
                 url: '{{ route('front.getOrderSummery') }}',
                 type: 'post',
@@ -374,6 +379,21 @@
                         $("#shippingAmount").html('$' + response.shippingCharge);
                         $("#grandTotal").html('$' + response.grandTotal);
                     }
+                }
+            });
+        });
+
+        $('#apply-discount').click(function() {
+            $.ajax({
+                url: "{{ route('front.applyDiscount') }}",
+                type: 'post',
+                data: {
+                    code: $("#discount_code").val(),
+                    country_id: $("#country").val()
+                },
+                dataType: 'json',
+                success: function(response) {
+
                 }
             });
         });
