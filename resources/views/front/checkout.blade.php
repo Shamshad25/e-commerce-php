@@ -434,6 +434,7 @@
                         $("#discount").html('$' + response.discount);
 
                         $("#discount-response").html('');
+                        $("#discount_code").val('');
                     }
                 }
             });
