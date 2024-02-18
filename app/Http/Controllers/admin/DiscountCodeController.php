@@ -17,6 +17,7 @@ class DiscountCodeController extends Controller
         // Search function
         if (!empty($request->get('keyword'))){
             $discountCoupons = $discountCoupons->where('name','like','%'.$request->get('keyword').'%');
+            $discountCoupons = $discountCoupons->orWhere('code','like','%'.$request->get('keyword').'%');
         }
 
         $discountCoupons = $discountCoupons->paginate(10);
