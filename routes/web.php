@@ -142,7 +142,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('/coupons',[DiscountCodeController::class,'store'])->name('coupons.store');
         Route::get('/coupons/{coupon}/edit',[DiscountCodeController::class,'edit'])->name('coupons.edit');
         Route::put('/coupons/{coupon}',[DiscountCodeController::class,'update'])->name('coupons.update');
-        // Route::delete('/shipping/{id}',[ShippingController::class,'destroy'])->name('shipping.delete');
+        Route::delete('/coupons/{coupon}',[DiscountCodeController::class,'destroy'])->name('coupons.delete');
 
 
 
