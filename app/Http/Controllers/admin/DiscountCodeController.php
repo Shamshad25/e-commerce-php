@@ -4,8 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DiscountCoupon;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class DiscountCodeController extends Controller
@@ -45,7 +45,7 @@ class DiscountCodeController extends Controller
 
             // Starting date must be greated than current date
             // if(!empty($request->starts_at)){
-            //     $now = Carbon::now();
+                // $now = Carbon::now();
             //     $startAt = Carbon::createFromFormat('Y-m-d H:i:s',$request->starts_at);
 
             //     // let = less than equal to
