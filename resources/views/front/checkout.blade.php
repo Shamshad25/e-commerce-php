@@ -149,6 +149,10 @@
                                 <div class="h6"><strong>Subtotal</strong></div>
                                 <div class="h6"><strong>${{ Cart::subtotal() }}</strong></div>
                             </div>
+                            <div class="d-flex justify-content-between summery-end">
+                                <div class="h6"><strong>Discount</strong></div>
+                                <div class="h6"><strong id="discount">${{ $discount }}</strong></div>
+                            </div>
                             <div class="d-flex justify-content-between mt-2">
                                 <div class="h6"><strong>Shipping</strong></div>
                                 <div class="h6"><strong
@@ -393,7 +397,12 @@
                 },
                 dataType: 'json',
                 success: function(response) {
-
+                    console.log('clicked');
+                    if (response.status == true) {
+                        $("#shippingAmount").html('$' + response.shippingCharge);
+                        $("#grandTotal").html('$' + response.grandTotal);
+                        $("#discount").html('$' + response.discount);
+                    }
                 }
             });
         });
