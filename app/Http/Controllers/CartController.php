@@ -343,6 +343,7 @@ class CartController extends Controller
 
         $subTotal = Cart::subtotal(2,'.','');
         $discount = 0;
+        $discountString = '';
 
         //Apply Discount here
         if(session()->has('code')){
@@ -353,7 +354,10 @@ class CartController extends Controller
             }else{
                 $discount = $code->discount_amount;
             }
+
+            $discountString = '<div class="mt-4" id="discount-response"><strong>'.session()->get('code')->code.' </strong><a class="btn btn-sm btn-danger" id="remove-discount"><i class="fa fa-times"></i></a></div>';
         }
+
 
         if($request->country_id > 0){
 
@@ -373,6 +377,7 @@ class CartController extends Controller
                     'status' => true,
                     'grandTotal' => number_format($grandTotal,2),
                     'discount' => $discount,
+                    'discountString' => $discountString,
                     'shippingCharge' => number_format($shippingCharge,2)
                 ]);
 
@@ -386,6 +391,7 @@ class CartController extends Controller
                     'status' => true,
                     'grandTotal' => number_format($grandTotal,2),
                     'discount' => $discount,
+                    'discountString' => $discountString,
                     'shippingCharge' => number_format($shippingCharge,2)
                 ]);
             }
@@ -396,6 +402,7 @@ class CartController extends Controller
                 'status' => true,
                 'grandTotal' => number_format(($subTotal-$discount),2),
                 'discount' => $discount,
+                'discountString' => $discountString,
                 'shippingCharge' => number_format(0,2)
             ]);
 
@@ -444,6 +451,14 @@ class CartController extends Controller
         }
 
         session()->put('code', $code);
+
+        return $this->getOrderSummery($request);
+
+    }
+
+    public function removeCoupon(Request $request){
+
+        session()->forget('code');
 
         return $this->getOrderSummery($request);
 
