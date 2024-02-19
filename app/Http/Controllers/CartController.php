@@ -271,7 +271,7 @@ class CartController extends Controller
         if($request->payment_method == 'cod'){
 
             $discountCodeId = '';
-            // $promoCode = '';
+            $promoCode = '';
             $shipping = 0;
             $discount = 0;
             $subTotal = Cart::subtotal(2,'.','');
@@ -288,7 +288,7 @@ class CartController extends Controller
                 }
 
                 $discountCodeId = $code->id;
-                // $promoCode = $code->code;
+                $promoCode = $code->code;
             }
 
 
@@ -316,8 +316,8 @@ class CartController extends Controller
             $order->shipping = $shipping;
             $order->grand_total = $grandTotal;
             $order->discount = $discount;
-            // $order->coupon_code_id = $discountCodeId;
-            $order->coupon_code = $discountCodeId;
+            $order->coupon_code_id = $discountCodeId;
+            $order->coupon_code = $promoCode;
             $order->user_id = $user;
             $order->first_name = $request->first_name;
             $order->last_name = $request->last_name;
