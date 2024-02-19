@@ -205,7 +205,6 @@ class CartController extends Controller
             $grandTotal = ($subTotal-$discount)+$totalShippingCharge;
 
         }else{
-            echo 'yyo';
             $grandTotal = ($subTotal-$discount);
             $totalShippingCharge = 0;
         }
