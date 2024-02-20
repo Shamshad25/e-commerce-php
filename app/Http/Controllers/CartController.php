@@ -196,7 +196,7 @@ class CartController extends Controller
             }
 
             if($shippingInfo == null ){
-                $shippingInfo =  ShippingCharge::where('country_id', 728)->first();
+                $shippingInfo =  ShippingCharge::where('country_id', 243)->first();
                 $totalShippingCharge = $totalQty*$shippingInfo->amount;
             }
 
@@ -304,7 +304,7 @@ class CartController extends Controller
                 $grandTotal = ($subTotal-$discount) + $shipping;
 
             }else{
-                $shippingInfo =  ShippingCharge::where('country_id', 728)->first();
+                $shippingInfo =  ShippingCharge::where('country_id', 243)->first();
                 $shipping = $totalQty*$shippingInfo->amount;
                 $grandTotal = ($subTotal-$discount) + $shipping;
             }
@@ -412,7 +412,7 @@ class CartController extends Controller
                 ]);
 
             }else{
-                $shippingInfo =  ShippingCharge::where('country_id', 728)->first();
+                $shippingInfo =  ShippingCharge::where('country_id', 243)->first();
                 // dd($shippingInfo);
                 $shippingCharge = $totalQty*$shippingInfo->amount;
                 $grandTotal = ($subTotal-$discount) + $shippingCharge;
