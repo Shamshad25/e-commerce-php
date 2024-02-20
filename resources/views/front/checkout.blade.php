@@ -413,6 +413,8 @@
                         $("#discount").html('$' + response.discount);
 
                         $("#discount-response-wrapper").html(response.discountString);
+                    } else {
+                        $("#discount-response-wrapper").html(response.message);
                     }
                 }
             });
