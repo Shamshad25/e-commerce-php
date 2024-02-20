@@ -480,6 +480,15 @@ class CartController extends Controller
             }
         }
 
+        $couponUsed = Order::where('coupon_code_id',$code->id)->count();
+
+        if($couponUsed >= $code->max_uses){
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid discount coupon.',
+            ]);
+        }
+
         session()->put('code', $code);
 
         return $this->getOrderSummery($request);
