@@ -481,25 +481,35 @@ class CartController extends Controller
         }
 
         // Max Uses Check
-        $couponUsed = Order::where('coupon_code_id',$code->id)->count();
 
-        if($couponUsed >= $code->max_uses){
-            return response()->json([
-                'status' => false,
-                'message' => 'This coupon code cannot be used again.',
-            ]);
+        if($code->max_uses > 0){
+            $couponUsed = Order::where('coupon_code_id',$code->id)->count();
+
+            if($couponUsed >= $code->max_uses){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'This coupon code cannot be used again.',
+                ]);
+            }
         }
+
+
 
 
         // Max Uses User Check
-        $couponUsedByUser = Order::where(['coupon_code_id' => $code->id, 'user_id' => Auth::user()->id])->count();
 
-        if($couponUsedByUser >= $code->max_uses_user){
-            return response()->json([
-                'status' => false,
-                'message' => 'The coupon code have already been used.',
-            ]);
+        if($code->max_uses_user > 0){
+            $couponUsedByUser = Order::where(['coupon_code_id' => $code->id, 'user_id' => Auth::user()->id])->count();
+
+            if($couponUsedByUser >= $code->max_uses_user){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'The coupon code have already been used.',
+                ]);
+            }
         }
+
+
 
 
 
