@@ -406,7 +406,7 @@ class CartController extends Controller
                 return response()->json([
                     'status' => true,
                     'grandTotal' => number_format($grandTotal,2),
-                    'discount' => $discount,
+                    'discount' => number_format($discount,2),
                     'discountString' => $discountString,
                     'shippingCharge' => number_format($shippingCharge,2)
                 ]);
@@ -420,7 +420,7 @@ class CartController extends Controller
                 return response()->json([
                     'status' => true,
                     'grandTotal' => number_format($grandTotal,2),
-                    'discount' => $discount,
+                    'discount' => number_format($discount,2),
                     'discountString' => $discountString,
                     'shippingCharge' => number_format($shippingCharge,2)
                 ]);
@@ -431,7 +431,7 @@ class CartController extends Controller
             return response()->json([
                 'status' => true,
                 'grandTotal' => number_format(($subTotal-$discount),2),
-                'discount' => $discount,
+                'discount' => number_format($discount,2),
                 'discountString' => $discountString,
                 'shippingCharge' => number_format(0,2)
             ]);
@@ -510,7 +510,17 @@ class CartController extends Controller
         }
 
 
+        $subTotal = Cart::subtotal(2,'.','');
 
+        // Min amount condition check
+        if($code->min_amount > 0){
+            if($subTotal < $code->min_amount){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Your min amount must be $'.$code->min_amount.'.',
+                ]);
+            }
+        }
 
 
         session()->put('code', $code);
