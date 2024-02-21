@@ -85,4 +85,8 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('account.login')->with('success', 'You are successfully logged out.');
     }
+
+    public function orders(){
+        return view('front.account.order');
+    }
 }
