@@ -97,4 +97,8 @@ class AuthController extends Controller
 
         return view('front.account.order', $data);
     }
+
+    public function orderDetail($id){
+        echo $id;
+    }
 }
