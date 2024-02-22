@@ -84,59 +84,27 @@
 
                             <!-- List group -->
                             <ul>
-                                <li class="list-group-item">
-                                    <div class="row align-items-center">
-                                        <div class="col-4 col-md-3 col-xl-2">
-                                            <!-- Image -->
-                                            <a href="product.html"><img src="images/product-1.jpg" alt="..."
-                                                    class="img-fluid"></a>
+                                @foreach ($orderItems as $orderItem)
+                                    <li class="list-group-item">
+                                        <div class="row align-items-center">
+                                            <div class="col-4 col-md-3 col-xl-2">
+                                                <!-- Image -->
+                                                <a href="product.html"><img src="images/product-1.jpg" alt="..."
+                                                        class="img-fluid"></a>
+                                            </div>
+                                            <div class="col">
+                                                <!-- Title -->
+                                                <p class="mb-4 fs-sm fw-bold">
+                                                    <a class="text-body" href="product.html">{{ $orderItem->name }} x
+                                                        {{ $orderItem->qty }}</a>
+                                                    <br>
+                                                    <span
+                                                        class="text-muted">${{ number_format($orderItem->total, 2) }}</span>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="col">
-                                            <!-- Title -->
-                                            <p class="mb-4 fs-sm fw-bold">
-                                                <a class="text-body" href="product.html">Cotton floral print Dress x 1</a>
-                                                <br>
-                                                <span class="text-muted">$40.00</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row align-items-center">
-                                        <div class="col-4 col-md-3 col-xl-2">
-                                            <!-- Image -->
-                                            <a href="#"><img src="images/product-2.jpg" alt="..."
-                                                    class="img-fluid"></a>
-                                        </div>
-                                        <div class="col">
-                                            <!-- Title -->
-                                            <p class="mb-4 fs-sm fw-bold">
-                                                <a class="text-body" href="#">Suede cross body Bag x 1</a> <br>
-                                                <span class="text-muted">$49.00</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <div class="row align-items-center">
-                                        <div class="col-4 col-md-3 col-xl-2">
-                                            <!-- Image -->
-                                            <a href="#"><img src="images/product-3.jpg" alt="..."
-                                                    class="img-fluid"></a>
-
-                                        </div>
-                                        <div class="col">
-
-                                            <!-- Title -->
-                                            <p class="mb-4 fs-sm fw-bold">
-                                                <a class="text-body" href="#">Sweatshirt with Pocket</a> <br>
-                                                <span class="text-muted">$39.00</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
