@@ -21,7 +21,7 @@
                 <div class="col-md-9">
                     <div class="card">
                         <div class="card-header">
-                            <h2 class="h5 mb-0 pt-2 pb-2">My Orders</h2>
+                            <h2 class="h5 mb-0 pt-2 pb-2">Order: {{ $order->id }}</h2>
                         </div>
 
                         <div class="card-body pb-0">
@@ -34,7 +34,7 @@
                                             <h6 class="heading-xxxs text-muted">Order No:</h6>
                                             <!-- Text -->
                                             <p class="mb-lg-0 fs-sm fw-bold">
-                                                673290789
+                                                {{ $order->id }}
                                             </p>
                                         </div>
                                         <div class="col-6 col-lg-3">
@@ -52,7 +52,13 @@
                                             <h6 class="heading-xxxs text-muted">Status:</h6>
                                             <!-- Text -->
                                             <p class="mb-0 fs-sm fw-bold">
-                                                Awating Delivery
+                                                @if ($order->status == 'pending')
+                                                    <span class="badge bg-danger">Pending</span>
+                                                @elseif ($order->status == 'shipped')
+                                                    <span class="badge bg-info">Shipped</span>
+                                                @else
+                                                    <span class="badge bg-info">Delivered</span>
+                                                @endif
                                             </p>
                                         </div>
                                         <div class="col-6 col-lg-3">
@@ -60,7 +66,7 @@
                                             <h6 class="heading-xxxs text-muted">Order Amount:</h6>
                                             <!-- Text -->
                                             <p class="mb-0 fs-sm fw-bold">
-                                                $259.00
+                                                ${{ number_format($order->grand_total, 2) }}
                                             </p>
                                         </div>
                                     </div>
