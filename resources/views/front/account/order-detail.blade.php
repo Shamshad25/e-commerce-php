@@ -131,7 +131,8 @@
                                     <span class="ms-auto">${{ number_format($order->subtotal, 2) }}</span>
                                 </li>
                                 <li class="list-group-item d-flex">
-                                    <span>Discount</span>
+                                    <span>Discount
+                                        {{ !empty($order->coupon_code) ? '(' . $order->coupon_code . ')' : '' }}</span>
                                     <span class="ms-auto">${{ number_format($order->discount, 2) }}</span>
                                 </li>
                                 <li class="list-group-item d-flex">
