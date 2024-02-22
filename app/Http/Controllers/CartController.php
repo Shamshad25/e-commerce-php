@@ -269,7 +269,7 @@ class CartController extends Controller
 
         if($request->payment_method == 'cod'){
 
-            $discountCodeId = '';
+            $discountCodeId = NULL;
             $promoCode = '';
             $shipping = 0;
             $discount = 0;
