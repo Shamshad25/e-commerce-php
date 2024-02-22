@@ -101,7 +101,13 @@ class AuthController extends Controller
     }
 
     public function orderDetail($id){
+
         $data = [];
+        $user = Auth::user();
+
+        $order = Order::where('user_id', $user->id)->where('id',$id)->first();
+
+        $data['order'] = $order;
 
         return view('front.account.order-detail', $data);
     }
