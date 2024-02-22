@@ -89,6 +89,8 @@ class AuthController extends Controller
 
     public function orders(){
 
+        $data = [];
+
         $user = Auth::user();
 
         $orders = Order::where('user_id', $user->id)->orderBy('created_at', 'DESC')->get();
@@ -99,6 +101,8 @@ class AuthController extends Controller
     }
 
     public function orderDetail($id){
-        echo $id;
+        $data = [];
+
+        return view('front.account.order-detail', $data);
     }
 }
