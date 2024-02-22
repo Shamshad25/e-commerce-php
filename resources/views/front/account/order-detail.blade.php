@@ -89,8 +89,20 @@
                                         <div class="row align-items-center">
                                             <div class="col-4 col-md-3 col-xl-2">
                                                 <!-- Image -->
-                                                <a href="product.html"><img src="images/product-1.jpg" alt="..."
-                                                        class="img-fluid"></a>
+                                                {{-- <a href="product.html"><img src="images/product-1.jpg" alt="..."
+                                                        class="img-fluid"></a> --}}
+                                                @php
+                                                    $productImage = getProductImage($orderItem->product_id);
+                                                @endphp
+
+                                                @if (!empty($productImage->image))
+                                                    <img class="img-fluid"
+                                                        src="{{ asset('uploads/product/small/' . $productImage->image) }}" />
+                                                @else
+                                                    <img src="{{ asset('admin-assets/img/default-150x150.png') }}"
+                                                        alt="" class="img-fluid" />
+                                                @endif
+
                                             </div>
                                             <div class="col">
                                                 <!-- Title -->
