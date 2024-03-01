@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -37,8 +38,11 @@ class OrderController extends Controller
                         ->leftJoin('countries', 'countries.id', 'orders.country_id')
                         ->first();
 
+        $orderItems = OrderItem::where('order_id',$orderId)->get();
+
         return view('admin.orders.detail',[
-            'order' => $order
+            'order' => $order,
+            'orderItems' => $orderItems
         ]);
     }
 }
