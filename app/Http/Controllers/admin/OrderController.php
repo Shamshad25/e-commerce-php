@@ -30,7 +30,15 @@ class OrderController extends Controller
         ]);
     }
 
-    public function derail(){
+    public function detail($orderId){
 
+        $order = Order::select('orders.*','countries.name as countryName')
+                        ->where('orders.id', $orderId)
+                        ->leftJoin('countries', 'countries.id', 'orders.country_id')
+                        ->first();
+
+        return view('admin.orders.detail',[
+            'order' => $order
+        ]);
     }
 }
