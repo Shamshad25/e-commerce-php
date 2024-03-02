@@ -100,24 +100,32 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                        <div class="card-body">
-                            <h2 class="h4 mb-3">Order Status</h2>
-                            <div class="mb-3">
-                                <select name="status" id="status" class="form-control">
-                                    <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending
-                                    </option>
-                                    <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped
-                                    </option>
-                                    <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>
-                                        Delivered
-                                    </option>
-                                    {{-- <option value="">Cancelled</option> --}}
-                                </select>
+                        <form action="" method="post" name="changeOrderStatusForm" id="changeOrderStatusForm">
+                            <div class="card-body">
+                                <h2 class="h4 mb-3">Order Status</h2>
+                                <div class="mb-3">
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending
+                                        </option>
+                                        <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped
+                                        </option>
+                                        <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>
+                                            Delivered
+                                        </option>
+                                        <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>
+                                            Cancelled
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">Shipped Date</label>
+                                    <input type="text" name="shipped_date" id="shipped_date" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-primary">Update</button>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <button class="btn btn-primary">Update</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -139,4 +147,29 @@
         <!-- /.card -->
     </section>
     <!-- /.content -->
+@endsection
+
+@section('customJs')
+    <script>
+        $(document).ready(function() {
+            $('#shipped_date').datetimepicker({
+                // options here
+                format: 'Y-m-d H:i:s',
+            });
+        });
+
+        $('#changeOrderStatusForm').submit(function(event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: '',
+                type: 'post',
+                data: $(this).serializeArray(),
+                dataType: 'json',
+                success: function(response) {
+
+                }
+            });
+        });
+    </script>
 @endsection
