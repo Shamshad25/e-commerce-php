@@ -155,6 +155,7 @@ Route::group(['prefix' => 'admin'], function(){
         // ORDERS ROUTES
         Route::get('/orders',[OrderController::class,'index'])->name('orders.index');
         Route::get('/orders/{id}',[OrderController::class,'detail'])->name('orders.detail');
+        Route::get('/orders/change-status/{id}',[OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
 
 
         // temp-images.create
