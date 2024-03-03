@@ -20,6 +20,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-9">
+                    @include('admin.message')
                     <div class="card">
                         <div class="card-header pt-3">
                             <div class="row invoice-info">
@@ -32,6 +33,12 @@
                                         Phone: {{ $order->mobile }}<br>
                                         Email: {{ $order->email }}
                                     </address>
+                                    <strong>Shipped Date</strong> <br>
+                                    @if (!empty($order->shipped_date))
+                                        {{ \Carbon\Carbon::parse($order->shipped_date)->format('d M, Y') }}
+                                    @else
+                                        n/a
+                                    @endif
                                 </div>
 
 
@@ -46,8 +53,10 @@
                                         <span class="text-danger">Pending</span>
                                     @elseif ($order->status == 'shipped')
                                         <span class="text-info">Shipped</span>
-                                    @else
+                                    @elseif ($order->status == 'delivered')
                                         <span class="text-success">Delivered</span>
+                                    @else
+                                        <span class="text-danger">Cancelled</span>
                                     @endif
                                     <br>
                                 </div>
@@ -119,7 +128,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="">Shipped Date</label>
-                                    <input type="text" name="shipped_date" id="shipped_date" class="form-control">
+                                    <input placeholder="Shipped date" value="{{ $order->shipped_date }}" type="text"
+                                        name="shipped_date" id="shipped_date" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <button class="btn btn-primary">Update</button>
@@ -162,12 +172,12 @@
             event.preventDefault();
 
             $.ajax({
-                url: '',
+                url: "{{ route('orders.changeOrderStatus', $order->id) }}",
                 type: 'post',
                 data: $(this).serializeArray(),
                 dataType: 'json',
                 success: function(response) {
-
+                    window.location.href = "{{ route('orders.detail', $order->id) }}"
                 }
             });
         });
