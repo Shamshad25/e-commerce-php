@@ -43,7 +43,11 @@
                                             <!-- Text -->
                                             <p class="mb-lg-0 fs-sm fw-bold">
                                                 <time datetime="2019-10-01">
-                                                    01 Oct, 2019
+                                                    @if (!empty($order->shipped_date))
+                                                        {{ \Carbon\Carbon::parse($order->shipped_date)->format('d M, Y') }}
+                                                    @else
+                                                        n/a
+                                                    @endif
                                                 </time>
                                             </p>
                                         </div>
@@ -56,8 +60,10 @@
                                                     <span class="badge bg-danger">Pending</span>
                                                 @elseif ($order->status == 'shipped')
                                                     <span class="badge bg-info">Shipped</span>
-                                                @else
+                                                @elseif ($order->status == 'delivered')
                                                     <span class="badge bg-info">Delivered</span>
+                                                @else
+                                                    <span class="badge bg-danger">Cancelled</span>
                                                 @endif
                                             </p>
                                         </div>
@@ -77,7 +83,7 @@
                         <div class="card-footer p-3">
 
                             <!-- Heading -->
-                            <h6 class="mb-7 h5 mt-4">Order Items (3)</h6>
+                            <h6 class="mb-7 h5 mt-4">Order Items {{ $orderItemsCount }}</h6>
 
                             <!-- Divider -->
                             <hr class="my-3">
