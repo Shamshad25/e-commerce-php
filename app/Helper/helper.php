@@ -37,6 +37,8 @@ function orderEmail($orderId){
 
 }
 
-
+function getCountryInfo($id){
+    return Country::where('id', $id)->first();
+}
 
 ?>
