@@ -59,4 +59,8 @@ class OrderController extends Controller
             'message' => 'Order status updated successfully.'
         ]);
     }
+
+    public function sendInvoiceEmail(Request $request, $orderId){
+
+    }
 }
