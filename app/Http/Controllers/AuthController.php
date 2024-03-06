@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -116,5 +117,13 @@ class AuthController extends Controller
         $data['orderItemsCount'] = $orderItemsCount;
 
         return view('front.account.order-detail', $data);
+    }
+
+    public function wishlist(){
+        $wishlist = Wishlist::where('user_id',Auth::user()->id)->get();
+
+        $data = [];
+
+        return view('front.account.wishlist',$data);
     }
 }
