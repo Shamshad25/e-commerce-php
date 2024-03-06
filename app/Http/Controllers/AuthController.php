@@ -120,9 +120,10 @@ class AuthController extends Controller
     }
 
     public function wishlist(){
-        $wishlist = Wishlist::where('user_id',Auth::user()->id)->get();
+        $wishlists = Wishlist::where('user_id',Auth::user()->id)->with('product')->get();
 
         $data = [];
+        $data['wishlists'] = $wishlists;
 
         return view('front.account.wishlist',$data);
     }
