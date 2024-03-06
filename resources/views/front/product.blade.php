@@ -59,8 +59,24 @@
 
                         {!! $product->short_description !!}
 
-                        <a href="javascritp:void(0);" onclick="addToCart({{ $product->id }})" class="btn btn-dark"><i
-                                class="fas fa-shopping-cart"></i> &nbsp;ADD TO CART</a>
+                        {{-- <a href="javascritp:void(0);" onclick="addToCart({{ $product->id }})" class="btn btn-dark"><i
+                                class="fas fa-shopping-cart"></i> &nbsp;ADD TO CART</a> --}}
+
+                        @if ($product->track_qty == 'Yes')
+                            @if ($product->track_qty > 0)
+                                <a class="btn btn-dark" href="javascritp:void(0);" onclick="addToCart({{ $product->id }})">
+                                    <i class="fa fa-shopping-cart"></i> &nbsp;Add To Cart
+                                </a>
+                            @else
+                                <a class="btn btn-dark" href="javascritp:void(0);">
+                                    Out of stock
+                                </a>
+                            @endif
+                        @else
+                            <a class="btn btn-dark" href="javascritp:void(0);" onclick="addToCart({{ $product->id }})">
+                                <i class="fa fa-shopping-cart"></i> &nbsp;Add To Cart
+                            </a>
+                        @endif
                     </div>
                 </div>
 
@@ -130,10 +146,28 @@
                                     <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
 
                                     <div class="product-action">
-                                        <a class="btn btn-dark" href="javascritp:void(0);"
+                                        {{-- <a class="btn btn-dark" href="javascritp:void(0);"
                                             onclick="addToCart({{ $product->id }})">
                                             <i class="fa fa-shopping-cart"></i> Add To Cart
-                                        </a>
+                                        </a> --}}
+
+                                        @if ($relProduct->track_qty == 'Yes')
+                                            @if ($relProduct->track_qty > 0)
+                                                <a class="btn btn-dark" href="javascritp:void(0);"
+                                                    onclick="addToCart({{ $relProduct->id }})">
+                                                    <i class="fa fa-shopping-cart"></i> Add To Cart
+                                                </a>
+                                            @else
+                                                <a class="btn btn-dark" href="javascritp:void(0);">
+                                                    Out of stock
+                                                </a>
+                                            @endif
+                                        @else
+                                            <a class="btn btn-dark" href="javascritp:void(0);"
+                                                onclick="addToCart({{ $relProduct->id }})">
+                                                <i class="fa fa-shopping-cart"></i> Add To Cart
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="card-body text-center mt-3">
