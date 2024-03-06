@@ -41,10 +41,21 @@ class FrontController extends Controller
             ]);
         }
 
-        $wishlist = new Wishlist();
-        $wishlist->user_id = Auth::user()->id;
-        $wishlist->product_id = $request->id;
-        $wishlist->save();
+        Wishlist::updateOrCreate(
+            [
+                'user_id' => Auth::user()->id,
+                'product_id' => $request->id
+            ],
+            [
+                'user_id' => Auth::user()->id,
+                'product_id' => $request->id
+            ]
+        );
+
+        // $wishlist = new Wishlist();
+        // $wishlist->user_id = Auth::user()->id;
+        // $wishlist->product_id = $request->id;
+        // $wishlist->save();
 
 
         return response()->json([
