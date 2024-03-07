@@ -247,6 +247,7 @@ class CartController extends Controller
         // $customerAddress = CustomerAddress::find();
 
         $user = Auth::user()->id;
+        
         CustomerAddress::updateOrCreate(
 
             ['user_id' => $user],
