@@ -174,7 +174,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/users',[UserController::class,'index'])->name('users.index');
         Route::get('/users/create',[UserController::class,'create'])->name('users.create');
         Route::post('/users',[UserController::class,'store'])->name('users.store');
-        // Route::get('/brands/{brand}/edit',[UserController::class,'edit'])->name('brands.edit');
+        Route::get('/users/{user}/edit',[UserController::class,'edit'])->name('users.edit');
         // Route::put('/brands/{brand}',[UserController::class,'update'])->name('brands.update');
         // Route::delete('/brands/{brand}',[UserController::class,'destroy'])->name('brands.delete');
 
