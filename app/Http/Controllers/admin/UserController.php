@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -26,6 +27,14 @@ class UserController extends Controller
 
     public function create(Request $request){
         return view('admin.users.create');
+    }
+
+    public function store(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required'
+        ]);
     }
 
 }
