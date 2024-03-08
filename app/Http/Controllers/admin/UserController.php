@@ -62,4 +62,18 @@ class UserController extends Controller
         }
     }
 
+    public function edit(Request $request, $id){
+
+        $user = User::find($id);
+
+        if($user == null){
+            session()->flash('error', 'User not found.');
+            return redirect()->route('users.index');
+        }
+
+        return view('admin.users.edit',[
+            'user' => $user
+        ]);
+    }
+
 }
