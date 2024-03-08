@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('users',function(Blueprint $table){
+            $table->integer('status')->default(1)->after('role');
+        });
     }
 
     /**
@@ -19,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('users',function(Blueprint $table){
+            $table->dropColumn('status');
+        });
     }
 };
