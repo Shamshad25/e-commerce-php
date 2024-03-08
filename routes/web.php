@@ -172,7 +172,7 @@ Route::group(['prefix' => 'admin'], function(){
 
         // USERS ROUTES
         Route::get('/users',[UserController::class,'index'])->name('users.index');
-        // Route::get('/brands/create',[BrandController::class,'create'])->name('brands.create');
+        Route::get('/users/create',[UserController::class,'create'])->name('users.create');
         // Route::post('/brands',[BrandController::class,'store'])->name('brands.store');
         // Route::get('/brands/{brand}/edit',[BrandController::class,'edit'])->name('brands.edit');
         // Route::put('/brands/{brand}',[BrandController::class,'update'])->name('brands.update');
