@@ -84,7 +84,7 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{ route('categories.edit', $user->id) }}">
+                                            <a href="{{ route('users.edit', $user->id) }}">
                                                 <svg class="filament-link-icon w-4 h-4 mr-1"
                                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                     fill="currentColor" aria-hidden="true">
