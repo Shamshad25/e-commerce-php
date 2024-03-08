@@ -44,12 +44,22 @@
 
                             <div class="col-md-6">
                                 <div class="mb-3">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" id="password" class="form-control"
+                                        placeholder="Password">
+                                    <p></p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
                                     <label for="phone">Phone</label>
                                     <input type="text" name="phone" id="phone" class="form-control"
                                         placeholder="Phone">
                                     <p></p>
                                 </div>
                             </div>
+
 
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -89,7 +99,7 @@
             $("button[type=submit]").prop('disabled', true);
 
             $.ajax({
-                url: '{{ route('categories.store') }}',
+                url: '{{ route('users.store') }}',
                 type: 'post',
                 data: element.serializeArray(),
                 dataType: 'json',
@@ -98,34 +108,64 @@
 
                     if (response['status'] == true) {
 
-                        window.location.href = "{{ route('categories.index') }}"
-
                         $('#name').removeClass('is-invalid')
                             .siblings('p')
                             .removeClass('invalid-feedback').html('');
 
-                        $('#slug').removeClass('is-invalid')
+                        $('#email').removeClass('is-invalid')
                             .siblings('p')
                             .removeClass('invalid-feedback').html('');
 
+                        $('#phone').removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html('');
+
+                        $('#password').removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html('');
+
+                        window.location.href = "{{ route('users.index') }}";
+
+
                     } else {
                         var errors = response['errors'];
+
                         if (errors['name']) {
                             $('#name').addClass('is-invalid')
                                 .siblings('p')
                                 .addClass('invalid-feedback').html(errors['name']);
                         } else {
-                            $('#name').addClass('is-invalid')
+                            $('#name').removeClass('is-invalid')
                                 .siblings('p')
                                 .removeClass('invalid-feedback').html('');
                         }
 
-                        if (errors['slug']) {
-                            $('#slug').addClass('is-invalid')
+                        if (errors['email']) {
+                            $('#email').addClass('is-invalid')
                                 .siblings('p')
-                                .addClass('invalid-feedback').html(errors['slug']);
+                                .addClass('invalid-feedback').html(errors['email']);
                         } else {
-                            $('#slug').addClass('is-invalid')
+                            $('#email').removeClass('is-invalid')
+                                .siblings('p')
+                                .removeClass('invalid-feedback').html('');
+                        }
+
+                        if (errors['password']) {
+                            $('#password').addClass('is-invalid')
+                                .siblings('p')
+                                .addClass('invalid-feedback').html(errors['password']);
+                        } else {
+                            $('#password').removeClass('is-invalid')
+                                .siblings('p')
+                                .removeClass('invalid-feedback').html('');
+                        }
+
+                        if (errors['phone']) {
+                            $('#phone').addClass('is-invalid')
+                                .siblings('p')
+                                .addClass('invalid-feedback').html(errors['phone']);
+                        } else {
+                            $('#phone').removeClass('is-invalid')
                                 .siblings('p')
                                 .removeClass('invalid-feedback').html('');
                         }

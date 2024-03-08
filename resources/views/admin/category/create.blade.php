@@ -126,7 +126,7 @@
                                 .siblings('p')
                                 .addClass('invalid-feedback').html(errors['name']);
                         } else {
-                            $('#name').addClass('is-invalid')
+                            $('#name').removeClass('is-invalid')
                                 .siblings('p')
                                 .removeClass('invalid-feedback').html('');
                         }
@@ -136,7 +136,7 @@
                                 .siblings('p')
                                 .addClass('invalid-feedback').html(errors['slug']);
                         } else {
-                            $('#slug').addClass('is-invalid')
+                            $('#slug').removeClass('is-invalid')
                                 .siblings('p')
                                 .removeClass('invalid-feedback').html('');
                         }
