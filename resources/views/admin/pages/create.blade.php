@@ -76,7 +76,7 @@
             $("button[type=submit]").prop('disabled', true);
 
             $.ajax({
-                url: '{{ route('categories.store') }}',
+                url: '{{ route('pages.store') }}',
                 type: 'post',
                 data: element.serializeArray(),
                 dataType: 'json',
@@ -85,7 +85,7 @@
 
                     if (response['status'] == true) {
 
-                        window.location.href = "{{ route('categories.index') }}"
+                        window.location.href = "{{ route('pages.index') }}"
 
                         $('#name').removeClass('is-invalid')
                             .siblings('p')
