@@ -186,7 +186,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/pages/create',[PageController::class,'create'])->name('pages.create');
         Route::post('/pages',[PageController::class,'store'])->name('pages.store');
         Route::get('/pages/{page}/edit',[PageController::class,'edit'])->name('pages.edit');
-        // Route::put('/users/{user}',[PageController::class,'update'])->name('users.update');
+        Route::put('/pages/{page}',[PageController::class,'update'])->name('pages.update');
         // Route::delete('/users/{user}',[PageController::class,'destroy'])->name('users.delete');
 
 
