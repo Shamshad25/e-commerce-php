@@ -112,8 +112,27 @@ class PageController extends Controller
         ]);
     }
 
-    public function destroy(){
+    public function destroy($id){
 
+        $page = Page::find($id);
+
+        if($page == null){
+            session()->flash('error', 'Page not found.');
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+
+        $page->delete();
+
+        $message  = 'Page deleted successfully.';
+
+        session()->flash('success', $message);
+
+        return response()->json([
+            'status' => true,
+            'message' => $message
+        ]);
     }
 
 }
