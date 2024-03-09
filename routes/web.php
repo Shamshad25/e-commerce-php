@@ -176,7 +176,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('/users',[UserController::class,'store'])->name('users.store');
         Route::get('/users/{user}/edit',[UserController::class,'edit'])->name('users.edit');
         Route::put('/users/{user}',[UserController::class,'update'])->name('users.update');
-        // Route::delete('/brands/{brand}',[UserController::class,'destroy'])->name('brands.delete');
+        Route::delete('/users/{user}',[UserController::class,'destroy'])->name('users.delete');
 
 
 
