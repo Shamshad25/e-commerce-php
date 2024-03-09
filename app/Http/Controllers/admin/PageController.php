@@ -58,7 +58,18 @@ class PageController extends Controller
 
     }
 
-    public function edit(){
+    public function edit($id){
+
+        $page = Page::find($id);
+
+        if($page == null){
+            session()->flash('error', 'Page not found.');
+            return redirect()->route('pages.index');
+        }
+
+        return view('admin.pages.edit',[
+            'page' => $page
+        ]);
 
     }
 
