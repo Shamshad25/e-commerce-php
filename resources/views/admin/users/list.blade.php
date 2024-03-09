@@ -93,7 +93,7 @@
                                                     </path>
                                                 </svg>
                                             </a>
-                                            <a href="#" onclick="deleteCategory({{ $user->id }})"
+                                            <a href="#" onclick="deleteUser({{ $user->id }})"
                                                 class="text-danger w-4 h-4 mr-1">
                                                 <svg wire:loading.remove.delay="" wire:target=""
                                                     class="filament-link-icon w-4 h-4 mr-1"
@@ -128,8 +128,8 @@
 @section('customJs')
     <script>
         // DELETE FUNCTION AJAX
-        function deleteCategory(id) {
-            var url = '{{ route('categories.delete', 'ID') }}';
+        function deleteUser(id) {
+            var url = '{{ route('users.delete', 'ID') }}';
             var newUrl = url.replace('ID', id);
 
             if (confirm('Are you sure you want to delete')) {
@@ -145,7 +145,7 @@
 
                         if (response['status']) {
 
-                            window.location.href = "{{ route('categories.index') }}"
+                            window.location.href = "{{ route('users.index') }}"
                         }
                     }
                 });
