@@ -20,7 +20,7 @@
         <!-- Default box -->
         <div class="container-fluid">
 
-            <form action="" method="post" name="categoryForm" id="categoryForm">
+            <form action="" method="post" name="pageForm" id="pageForm">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -70,7 +70,7 @@
 @section('customJs')
     <script>
         // Web Validation
-        $('#categoryForm').submit(function(event) {
+        $('#pageForm').submit(function(event) {
             event.preventDefault();
             var element = $(this);
             $("button[type=submit]").prop('disabled', true);
