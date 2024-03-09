@@ -76,8 +76,8 @@
             $("button[type=submit]").prop('disabled', true);
 
             $.ajax({
-                url: '{{ route('pages.store') }}',
-                type: 'post',
+                url: '{{ route('pages.update', $page->id) }}',
+                type: 'put',
                 data: element.serializeArray(),
                 dataType: 'json',
                 success: function(response) {
