@@ -45,6 +45,7 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->phone = $request->phone;
+            $user->status = $request->status;
             $user->save();
 
             session()->flash('success', 'User created successfully.');
@@ -74,6 +75,51 @@ class UserController extends Controller
         return view('admin.users.edit',[
             'user' => $user
         ]);
+    }
+
+    public function update(Request $request, $id){
+
+        $user = User::find($id);
+
+        if($user == null){
+            session()->flash('error', 'User not found.');
+
+            return response()->json([
+                'status' => true,
+                'message' => 'User not found.',
+            ]);
+        }
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id.',id',
+            'phone' => 'required'
+        ]);
+
+        if($validator->passes()){
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            if($request->password != ''){
+                $user->password = Hash::make($request->password);
+            }
+            $user->phone = $request->phone;
+            $user->status = $request->status;
+            $user->save();
+
+            session()->flash('success', 'User created successfully.');
+
+            return response()->json([
+                'status' => true,
+                'message' => 'User created successfully.',
+            ]);
+
+        }else{
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ]);
+        }
     }
 
 }
