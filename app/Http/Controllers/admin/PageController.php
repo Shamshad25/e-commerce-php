@@ -9,8 +9,19 @@ use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller
 {
-    public function index(){
-        return view('admin.pages.index');
+    public function index(Request $request){
+
+        $pages = Page::latest();
+
+        if($request->keyword != ''){
+            $pages = $pages->where('name', 'like', '%'.$request->keyword.'%' );
+        }
+
+        $pages = $pages->paginate(10);
+
+        return view('admin.pages.list', [
+            'pages' => $pages
+        ]);
     }
 
     public function create(){
