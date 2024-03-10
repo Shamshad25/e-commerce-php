@@ -56,6 +56,7 @@ Route::post('/get-order-summery', [CartController::class,'getOrderSummery'])->na
 Route::post('/apply-discount', [CartController::class,'applyDiscount'])->name('front.applyDiscount');
 Route::post('/remove-discount', [CartController::class,'removeCoupon'])->name('front.removeCoupon');
 Route::post('/add-to-wishlist', [FrontController::class,'addToWishlist'])->name('front.addToWishlist');
+Route::get('/page/{slug}', [FrontController::class,'page'])->name('front.page');
 
 
 
@@ -72,6 +73,10 @@ Route::group(['prefix' => 'account'], function(){
         Route::get('/profile', [AuthController::class,'profile'])->name('account.profile');
         Route::post('/update-profile', [AuthController::class,'updateProfile'])->name('account.updateProfile');
         Route::post('/update-address', [AuthController::class,'updateAddress'])->name('account.updateAddress');
+        Route::get('/change-password', [AuthController::class,'showChangePasswordForm'])->name('account.changePassword');
+        Route::post('/process-change-password', [AuthController::class,'changePassword'])->name('account.processChangePassword');
+
+
         Route::get('/my-orders', [AuthController::class,'orders'])->name('account.orders');
         Route::get('/my-wishlist', [AuthController::class,'wishlist'])->name('account.wishlist');
         Route::post('/remove-product-from-wishlist', [AuthController::class,'removeProductWishlist'])->name('account.removeProductWishlist');
