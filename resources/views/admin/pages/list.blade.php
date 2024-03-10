@@ -49,7 +49,7 @@
                                 <th width="60">ID</th>
                                 <th>Name</th>
                                 <th>Slug</th>
-                                <th width="100">Content</th>
+                                {{-- <th width="100">Content</th> --}}
                                 <th width="100">Action</th>
                             </tr>
                         </thead>
@@ -61,7 +61,7 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $page->name }}</td>
                                         <td>{{ $page->slug }}</td>
-                                        <td>{!! $page->content !!}</td>
+                                        {{-- <td>{!! $page->content !!}</td> --}}
                                         <td>
                                             <a href="{{ route('pages.edit', $page->id) }}">
                                                 <svg class="filament-link-icon w-4 h-4 mr-1"
