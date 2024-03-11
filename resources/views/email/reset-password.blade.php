@@ -9,11 +9,16 @@
 </head>
 
 <body style="font-family: Arial, Helvetica, sans-serif; font-size: 16px">
+
+    <p>Hello, {{ $formData['user']->name }}</p>
+
     <h1>You have recieved to change password:</h1>
 
     <p>Please click the link given below to reset password.</p>
 
-    <a href="{{ route() }}">Click here</a>
+    <a href="{{ route('front.resetPassword', $formData['token']) }}">Click Here</a>
+
+    <p>Thankyou.</p>
 </body>
 
 </html>
