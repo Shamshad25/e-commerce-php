@@ -67,6 +67,7 @@ Route::get('/reset-password/{token}', [AuthController::class,'resetPassword'])->
 Route::post('/process-reset-password', [AuthController::class,'processResetPassword'])->name('front.processResetPassword');
 
 
+Route::post('/save-rating/{productId}', [ShopController::class,'saveRating'])->name('front.saveRating');
 
 
 
