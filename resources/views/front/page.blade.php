@@ -24,6 +24,13 @@
         <section>
             <div class="container">
                 <div class="row">
+                    <div class="col-md-12">
+                        @if (Session::has('success'))
+                            <div class="alert alert-success">
+                                {{ Session::get('success') }}
+                            </div>
+                        @endif
+                    </div>
                     <div class="col-md-6 mt-3 pe-lg-5">
                         {!! $page->content !!}
                     </div>
@@ -84,13 +91,19 @@
         $("#contactForm").submit(function(event) {
             event.preventDefault();
 
+            $('#form-submit').prop('disabled', true);
+
             $.ajax({
                 url: "{{ route('front.sendContactEmail') }}",
                 type: 'post',
                 data: $(this).serializeArray(),
                 dataType: 'json',
                 success: function(response) {
+
+                    $('#form-submit').prop('disabled', false);
+
                     if (response.status == true) {
+                        window.location.href = "{{ route('front.page', $page->slug) }}"
 
                     } else {
 
