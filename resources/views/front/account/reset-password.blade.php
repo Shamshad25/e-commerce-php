@@ -25,7 +25,7 @@
                 </div>
             @endif
             <div class="login-form">
-                <form action="{{ route('front.processForgotPassword') }}" method="post">
+                <form action="{{ route('front.processResetPassword') }}" method="post">
                     @csrf
 
                     <input type="hidden" name="token" value="{{ $token }}">
