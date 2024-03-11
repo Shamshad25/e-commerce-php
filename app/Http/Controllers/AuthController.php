@@ -314,7 +314,9 @@ class AuthController extends Controller
 
         $token = Str::random(60);
 
-        \DB::table('password_reset_tokens')->insert([
+        DB::table('password_reset_tokens')->where('email',$request->email)->delete();
+
+        DB::table('password_reset_tokens')->insert([
             'email' => $request->email,
             'token' => $token,
             'created_at' => now(),
@@ -331,6 +333,25 @@ class AuthController extends Controller
         ];
 
         Mail::to($request->email)->send(new ResetPasswordEmail($formData));
+
+        return redirect()->route('front.forgotPassword')->with('success', 'Please check your email to reset your password.');
+
+    }
+
+    public function resetPassword($token){
+
+        $tokenExist = DB::table('password_reset_tokens')->where('token',$token)->first();
+
+        if($tokenExist == null){
+            return redirect()->route('front.forgotPassword')->with('error', 'Invalid request');
+        }
+
+        return view('front.account.reset-password', [
+            'token' => $token
+        ]);
+    }
+
+    public function processResetPassword(Request $request){
 
     }
 
