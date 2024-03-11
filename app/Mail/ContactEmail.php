@@ -29,7 +29,7 @@ class ContactEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contact Email',
+            subject: $this->mailData['mail_subject'],
         );
     }
 
@@ -39,7 +39,7 @@ class ContactEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'email.contact',
         );
     }
 
