@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class FrontController extends Controller
 {
@@ -77,6 +78,26 @@ class FrontController extends Controller
         return view('front.page',[
             'page' => $page
         ]);
+    }
+
+    public function sendContactEmail(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required|min:10',
+        ]);
+
+        if($validator->passes()){
+
+            // Send email here
+
+        }else{
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+
     }
 
 }
