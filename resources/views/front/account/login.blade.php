@@ -29,21 +29,21 @@
                     @csrf
                     <h4 class="modal-title">Login to Your Account</h4>
                     <div class="form-group">
-                        <input type="text" class="form-control @error('error') is-invalid @enderror" placeholder="Email"
+                        <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="Email"
                             name="email" value="{{ old('email') }}">
-                        @error('error')
+                        @error('email')
                             <p class="invalid-feedback">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
                             placeholder="Password" name="password">
-                        @error('error')
+                        @error('password')
                             <p class="invalid-feedback">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group small">
-                        <a href="#" class="forgot-link">Forgot Password?</a>
+                        <a href="{{ route('front.forgotPassword') }}" class="forgot-link">Forgot Password?</a>
                     </div>
                     <input type="submit" class="btn btn-dark btn-block btn-lg" value="Login">
                 </form>
