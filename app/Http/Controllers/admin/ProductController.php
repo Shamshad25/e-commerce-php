@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductRating;
 use App\Models\SubCategory;
 use App\Models\TempImage;
 use Illuminate\Http\Request;
@@ -117,7 +118,7 @@ class ProductController extends Controller
                 }
             }
 
-            $request->session()->flash('success','Product added successfully.');
+            session()->flash('success','Product added successfully.');
 
             return response()->json([
                 'status' => true,
@@ -207,7 +208,7 @@ class ProductController extends Controller
             $product->save();
 
 
-            $request->session()->flash('success','Product updated successfully.');
+            session()->flash('success','Product updated successfully.');
 
             return response()->json([
                 'status' => true,
@@ -226,7 +227,8 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if(empty($product)){
-            $request->session()->flash('error', 'Product not found.');
+
+            session()->flash('error', 'Product not found.');
 
             return response()->json([
                 'status' => false,
@@ -248,7 +250,7 @@ class ProductController extends Controller
 
         $product->delete();
 
-        $request->session()->flash('success', 'Product deleted successfully.');
+        session()->flash('success', 'Product deleted successfully.');
 
         return response()->json([
             'status' => true,
@@ -271,6 +273,36 @@ class ProductController extends Controller
 
         return response()->json([
             'tags' => $tempProduct,
+            'status' => true,
+        ]);
+    }
+
+    public function productRatings(Request $request){
+
+        $ratings = ProductRating::select('product_ratings.*','products.title as productTitle')->orderBy('product_ratings.created_at','DESC');
+        $ratings = $ratings->leftJoin('products','products.id','product_ratings.product_id');
+
+        if($request->get('keyword')  != ""){
+            $ratings = $ratings->orWhere('products.title','like','%'.$request->keyword.'%');
+            $ratings = $ratings->orWhere('product_ratings.username','like','%'.$request->keyword.'%');
+        }
+
+        $ratings = $ratings->paginate(10);
+
+        return view('admin.products.ratings',[
+            'ratings' => $ratings
+        ]);
+    }
+
+    public function changeRatingStatus(Request $request){
+
+        $productRating = ProductRating::find($request->id);
+        $productRating->status = $request->status;
+        $productRating->save();
+
+        session()->flash('success', 'Status changed successfully');
+
+        return response()->json([
             'status' => true,
         ]);
     }
