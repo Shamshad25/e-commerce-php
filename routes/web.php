@@ -149,6 +149,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::put('/products/{product}',[ProductController::class,'update'])->name('products.update');
         Route::delete('/products/{product}',[ProductController::class,'destroy'])->name('products.delete');
         Route::get('/get-products', [ProductController::class,'getProducts'])->name('products.getProducts');
+        Route::get('/ratings',[ProductController::class,'productRatings'])->name('products.productRatings');
+        Route::get('/change-rating-status',[ProductController::class,'changeRatingStatus'])->name('products.changeRatingStatus');
 
 
 
