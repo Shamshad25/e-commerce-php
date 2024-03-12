@@ -86,7 +86,11 @@ class ShopController extends Controller
 
     public function product($slug){
         // echo $slug;
-        $product = Product::where('slug',$slug)->with('product_images')->first();
+        $product = Product::where('slug',$slug)
+                    ->withCount('product_ratings')
+                    ->withSum('product_ratings','rating')
+                    ->with(['product_images','product_ratings'])->first();
+
         if($product == null){
             abort(404);
         }
@@ -101,6 +105,20 @@ class ShopController extends Controller
 
         $data['product'] = $product;
         $data['relatedProducts'] = $relatedProducts;
+
+        // Rating Calculation
+
+        $avgRating = '0.00';
+        $avgRatingPer = 0;
+
+        if($product->product_ratings_count > 0){
+            $avgRating = number_format(($product->product_ratings_sum_rating/ $product->product_ratings_count),2);
+            $avgRatingPer = ($avgRating*100)/5;
+        }
+
+        $data['avgRating'] = $avgRating;
+        $data['avgRatingPer'] = $avgRatingPer;
+        // dd($avgRatingPer);
 
         return view('front.product',$data);
     }
