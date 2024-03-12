@@ -181,6 +181,17 @@ class CartController extends Controller
             }
         }
 
+        // $ship = Country::all();
+        // dd($countries);
+        $restOfWorld = '';
+        foreach($countries as $country){
+            if($country->name == 'Rest of the world'){
+                $restOfWorld = $country->id;
+            }
+        }
+
+        // dd($restOfWorld);
+
         // Calculate Shipping here
         if($customerAddress != ''){
             $userCountry = $customerAddress->country_id;
@@ -196,7 +207,7 @@ class CartController extends Controller
             }
 
             if($shippingInfo == null ){
-                $shippingInfo =  ShippingCharge::where('country_id', 243)->first();
+                $shippingInfo =  ShippingCharge::where('country_id', $restOfWorld)->first();
                 $totalShippingCharge = $totalQty*$shippingInfo->amount;
             }
 
@@ -247,7 +258,7 @@ class CartController extends Controller
         // $customerAddress = CustomerAddress::find();
 
         $user = Auth::user()->id;
-        
+
         CustomerAddress::updateOrCreate(
 
             ['user_id' => $user],
@@ -295,6 +306,16 @@ class CartController extends Controller
             // Calculate Shipping
             $shippingInfo =  ShippingCharge::where('country_id', $request->country)->first();
 
+            $countries = Country::orderBy('name','ASC')->get();
+
+
+            $restOfWorld = '';
+            foreach($countries as $country){
+                if($country->name == 'Rest of the world'){
+                    $restOfWorld = $country->id;
+                }
+            }
+
             $totalQty = 0;
             foreach(Cart::content() as $item){
                 $totalQty += $item->qty;
@@ -305,7 +326,7 @@ class CartController extends Controller
                 $grandTotal = ($subTotal-$discount) + $shipping;
 
             }else{
-                $shippingInfo =  ShippingCharge::where('country_id', 243)->first();
+                $shippingInfo =  ShippingCharge::where('country_id', $restOfWorld)->first();
                 $shipping = $totalQty*$shippingInfo->amount;
                 $grandTotal = ($subTotal-$discount) + $shipping;
             }
@@ -415,6 +436,16 @@ class CartController extends Controller
                 $totalQty += $item->qty;
             }
 
+            $countries = Country::orderBy('name','ASC')->get();
+
+
+            $restOfWorld = '';
+            foreach($countries as $country){
+                if($country->name == 'Rest of the world'){
+                    $restOfWorld = $country->id;
+                }
+            }
+
             if($shippingInfo != null){
 
                 $shippingCharge = $totalQty*$shippingInfo->amount;
@@ -429,7 +460,7 @@ class CartController extends Controller
                 ]);
 
             }else{
-                $shippingInfo =  ShippingCharge::where('country_id', 243)->first();
+                $shippingInfo =  ShippingCharge::where('country_id', $restOfWorld)->first();
                 // dd($shippingInfo);
                 $shippingCharge = $totalQty*$shippingInfo->amount;
                 $grandTotal = ($subTotal-$discount) + $shippingCharge;
